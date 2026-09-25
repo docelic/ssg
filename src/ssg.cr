@@ -20,4 +20,3 @@ require "./ssg/cli"
 module SSG
   VERSION = "0.1.0"
 end
-

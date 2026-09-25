@@ -12,7 +12,7 @@ module SSG
       end
 
       def self.formatter(theme : String?, line_numbers : Bool) : Tartrazine::Html?
-        return nil unless theme
+        return unless theme
         Tartrazine::Html.new(theme: Tartrazine.theme(theme), line_numbers: line_numbers, class_prefix: "hl-")
       rescue e : Exception
         raise Error.new("config: unknown highlight theme #{theme.inspect}", cause: e)

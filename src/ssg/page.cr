@@ -55,7 +55,7 @@ module SSG
     end
 
     def format : String
-      @resolved.format.not_nil!
+      @resolved.format || raise Error.new("#{@source_path}: no output format")
     end
   end
 
@@ -87,7 +87,7 @@ module SSG
       get(attr.to_string)
     end
 
-    def crinja_call(name : String) : Crinja::Callable | Crinja::Callable::Proc | Nil
+    def crinja_call(name : String) : Crinja::Callable | Crinja::Callable::Proc?
       case name
       when "get"
         ->(a : Crinja::Arguments) { get(a.varargs[0].to_s) }
@@ -276,7 +276,6 @@ module SSG
       when Array  then v.map(&.raw.to_s)
       when String then [v]
       when Bool   then v ? nil : [] of String
-      else             nil
       end
     end
 
@@ -409,7 +408,7 @@ module SSG
       io << "#<Page " << url << " " << kind << ">"
     end
 
-    def crinja_attribute(attr : Crinja::Value) : Crinja::Value
+    def crinja_attribute(attr : Crinja::Value) : Crinja::Value # ameba:disable Metrics/CyclomaticComplexity
       name = attr.to_string
       value = case name
               when "title"         then title
@@ -453,7 +452,7 @@ module SSG
       Crinja::Value.new(value)
     end
 
-    def crinja_call(name : String) : Crinja::Callable | Crinja::Callable::Proc | Nil
+    def crinja_call(name : String) : Crinja::Callable | Crinja::Callable::Proc?
       case name
       when "terms_for"
         ->(args : Crinja::Arguments) { Crinja::Value.new(terms_for(args.varargs[0].to_s)) }

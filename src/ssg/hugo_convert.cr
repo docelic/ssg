@@ -45,7 +45,7 @@ module SSG
     private def self.arguments(args : String) : String
       list = [] of String
       pos = 0
-      while (m = ARG.match(args, pos))
+      while m = ARG.match(args, pos)
         pos = m.end
         value = m[2]? || m[3]?.try(&.gsub("\\'", "'")) || m[4]? || ""
         literal = %("#{value.gsub("\\", "\\\\").gsub('"', "\\\"")}")

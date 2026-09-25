@@ -1,0 +1,8 @@
+# Single-letter block parameters (|p|, |f|, |k, v|) are the house style.
+Naming/BlockParameterName:
+  Enabled: false
+
+# Specs assert presence with not_nil!; the code proper avoids it.
+Lint/NotNil:
+  Excluded:
+    - spec/**/*.cr

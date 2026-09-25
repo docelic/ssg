@@ -168,11 +168,11 @@ module SSG
     # Jobs are created through these helpers so that each proc closes over
     # its own parameters rather than over loop variables.
     private def body_job(rel : String, origin : String, page : Page, format : String) : Job
-      Job.new(rel, origin, ->{ body(page, format) })
+      Job.new(rel, origin, -> { body(page, format) })
     end
 
     private def layout_job(rel : String, origin : String, layout : String, page : Page, format : String, pg : Paginator) : Job
-      Job.new(rel, origin, ->{ render_layout(layout, page, body(page, format), pg) })
+      Job.new(rel, origin, -> { render_layout(layout, page, body(page, format), pg) })
     end
 
     private def body(page : Page, format : String) : Bytes
@@ -201,7 +201,7 @@ module SSG
     private def alias_job(page : Page, a : String) : Job
       rel = a.strip('/')
       rel = File.join(rel, "index.html") if a.ends_with?('/') || File.extname(rel).empty?
-      Job.new(rel, "alias #{a} of #{page.dir}", ->{ render_alias(page, a) })
+      Job.new(rel, "alias #{a} of #{page.dir}", -> { render_alias(page, a) })
     end
 
     private def render_alias(page : Page, a : String) : Bytes
@@ -237,9 +237,9 @@ module SSG
     private def resource_job(r : Resource) : Job
       target = File.join(r.page.output_dir, r.rel_path)
       if r.resolved.passthrough?
-        Job.new(target, r.source_path, ->{ read(r.source_path) })
+        Job.new(target, r.source_path, -> { read(r.source_path) })
       else
-        Job.new(target, r.source_path, ->{
+        Job.new(target, r.source_path, -> {
           ctx = Chain::Context.new(@site, @env, r.page, origin: r.source_path)
           @registry.process(read(r.source_path), r.resolved, ctx)
         })
@@ -269,9 +269,9 @@ module SSG
 
     private def static_job(rel : String, path : String, resolved : Chain::Resolved) : Job
       if resolved.passthrough?
-        Job.new(rel, path, ->{ read(path) })
+        Job.new(rel, path, -> { read(path) })
       else
-        Job.new(rel, path, ->{
+        Job.new(rel, path, -> {
           ctx = Chain::Context.new(@site, @env, nil, origin: path)
           @registry.process(read(path), resolved, ctx)
         })

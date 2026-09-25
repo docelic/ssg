@@ -144,7 +144,7 @@ module SSG
       end
       primary = variants.find { |v| v.format == "html" } || variants.first
       page = Page.new(self, tree.rel, Page::Kind::Page, primary.data, variants)
-      return nil if page.draft? && !drafts?
+      return if page.draft? && !drafts?
       register page
       link(page, parent) if parent
       page
@@ -222,7 +222,7 @@ module SSG
         @taxonomy_pages[tax] = tax_page
         index = @term_index[tax] = {} of String => Page
 
-        terms.keys.sort.each do |term|
+        terms.keys.sort!.each do |term|
           dir = "#{tax}/#{Site.slugify(term)}"
           tp = @by_dir[dir]? || register(Page.new(self, dir, Page::Kind::List))
           tp.taxonomy = tax
@@ -278,7 +278,7 @@ module SSG
       if page = find_by_path(ref)
         return page
       end
-      return nil if ref.includes?('/')
+      return if ref.includes?('/')
       matches = @pages.select { |p| !p.dir.empty? && (p.slug == ref || File.basename(p.dir) == ref) }
       raise Error.new("ambiguous reference #{ref.inspect}: #{matches.map(&.url).join(", ")}") if matches.size > 1
       matches.first?
@@ -323,7 +323,7 @@ module SSG
       Crinja::Value.new(value)
     end
 
-    def crinja_call(name : String) : Crinja::Callable | Crinja::Callable::Proc | Nil
+    def crinja_call(name : String) : Crinja::Callable | Crinja::Callable::Proc?
       case name
       when "page"
         ->(args : Crinja::Arguments) { Crinja::Value.new(find(args.varargs[0].to_s)) }

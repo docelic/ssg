@@ -105,7 +105,7 @@ module SSG
       end
 
       # Static resolution, from the filename alone.
-      def resolve(filename : String) : Resolved
+      def resolve(filename : String) : Resolved # ameba:disable Metrics/CyclomaticComplexity
         parts = filename.split('.')
         steps = [] of Step
         format : String? = nil

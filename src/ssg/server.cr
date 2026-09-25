@@ -15,7 +15,7 @@ module SSG
       outdir = config.output_dir
       rebuild
 
-      handler = Handler.new(outdir, ->{ @generation })
+      handler = Handler.new(outdir, -> { @generation })
       server = HTTP::Server.new([HTTP::LogHandler.new, handler])
       address = server.bind_tcp("127.0.0.1", @port)
       STDERR.puts "serving #{outdir} at http://#{address}"

@@ -11,6 +11,8 @@ description: |
 targets:
   ssg:
     main: src/main.cr
+  ameba:
+    main: lib/ameba/bin/ameba.cr
 
 crystal: ">= 1.10.0"
 
@@ -25,3 +27,8 @@ dependencies:
     github: ralsina/tartrazine
   sass:
     github: straight-shoota/sass.cr
+
+development_dependencies:
+  ameba:
+    github: crystal-ameba/ameba
+    version: ~> 1.7.0

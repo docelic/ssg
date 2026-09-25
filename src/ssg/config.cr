@@ -28,7 +28,7 @@ module SSG
 
     DEFAULT_TAXONOMIES = ["tags", "categories"]
 
-    def initialize(@root : String, data : FrontMatter::Data = FrontMatter::Data.new)
+    def initialize(@root : String, data : FrontMatter::Data = FrontMatter::Data.new) # ameba:disable Metrics/CyclomaticComplexity
       @title = data["title"]?.try(&.as_s?) || ""
       @base_url = normalize_base_url(data["base_url"]?.try(&.as_s?) || "/")
       @permalinks = data["permalinks"]?.try(&.as_h?).try { |h| h.to_h { |k, v| {k.to_s, v.as_s} } } || {} of String => String
@@ -89,7 +89,7 @@ module SSG
 
     # `markdown:` block: boolean markd options by name, plus `highlight`
     # (false, or a theme name) and `line_numbers`.
-    private def markdown_options(any : YAML::Any?) : Markd::Options
+    private def markdown_options(any : YAML::Any?) : Markd::Options # ameba:disable Metrics/CyclomaticComplexity
       o = Markd::Options.new
       any.try(&.as_h?).try &.each do |k, v|
         flag = v.as_bool? || false

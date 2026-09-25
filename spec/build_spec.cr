@@ -14,7 +14,7 @@ describe SSG::Builder do
     end
 
     it "renders every format that has a matching layout" do
-            xml = File.read(File.join(outdir, "blog/index.xml"))
+      xml = File.read(File.join(outdir, "blog/index.xml"))
       xml.should contain "<item><p>later</p>"
       xml.should contain "<item><p>hello"
       File.exists?(File.join(outdir, "blog/hello/index.xml")).should be_false
@@ -78,9 +78,9 @@ describe SSG::Builder do
 
     it "compiles scss in static directories, with private partials and theme imports" do
       css = File.read(File.join(outdir, "css/site.css"))
-      css.should contain "color: #123456"      # from the site's own _vars.scss
-      css.should contain ".nested .child"      # nesting compiled
-      css.should contain "theme-mixin: yes"    # imported from the theme's static dir
+      css.should contain "color: #123456"   # from the site's own _vars.scss
+      css.should contain ".nested .child"   # nesting compiled
+      css.should contain "theme-mixin: yes" # imported from the theme's static dir
       File.exists?(File.join(outdir, "css/_vars.scss")).should be_false
       File.exists?(File.join(outdir, "css/_theme_mixins.scss")).should be_false
       File.exists?(File.join(outdir, "css/site.css.scss")).should be_false
@@ -89,11 +89,11 @@ describe SSG::Builder do
 
     it "restricts a page to the formats named in outputs, and to none for an empty list" do
       File.exists?(File.join(outdir, "d/intro/index.html")).should be_true
-      File.exists?(File.join(outdir, "d/intro/index.txt")).should be_false # outputs: [html]
-      File.exists?(File.join(outdir, "renamed/silent")).should be_false     # outputs: []
+      File.exists?(File.join(outdir, "d/intro/index.txt")).should be_false       # outputs: [html]
+      File.exists?(File.join(outdir, "renamed/silent")).should be_false          # outputs: []
       File.read(File.join(outdir, "renamed/index.html")).should contain "Silent" # still listed
-      File.exists?(File.join(outdir, "tags/index.xml")).should be_false      # cascaded onto itself
-      File.exists?(File.join(outdir, "tags/a/index.xml")).should be_false    # and onto the term pages
+      File.exists?(File.join(outdir, "tags/index.xml")).should be_false          # cascaded onto itself
+      File.exists?(File.join(outdir, "tags/a/index.xml")).should be_false        # and onto the term pages
       File.exists?(File.join(outdir, "tags/a/index.html")).should be_true
     end
 
@@ -191,9 +191,9 @@ describe SSG::Builder do
 
     it "produces the expected files" do
       %w[index.html index.xml index.json 404.html about/index.html search/index.html
-         posts/index.html posts/unix-history/index.html posts/unix-philosophy/index.html unix-history/index.html
-         tags/index.html tags/unix/index.html series/index.html series/unix/index.html
-         css/minima.css js/minima.js js/search.js js/fuse.basic.min.js img/link-external.svg
+        posts/index.html posts/unix-history/index.html posts/unix-philosophy/index.html unix-history/index.html
+        tags/index.html tags/unix/index.html series/index.html series/unix/index.html
+        css/minima.css js/minima.js js/search.js js/fuse.basic.min.js img/link-external.svg
       ].each { |f| File.exists?(File.join(outdir, f)).should be_true }
       File.exists?(File.join(outdir, "404/index.html")).should be_false
     end
@@ -219,8 +219,8 @@ describe SSG::Builder do
 
     it "writes a valid search index and feeds" do
       docs = JSON.parse(File.read(File.join(outdir, "index.json"))).as_a
-      docs.map(&.["title"].as_s).sort.should eq ["About", "History of Unix, BSD, GNU, and Linux", "The Unix Philosophy"]
-      docs.find { |d| d["title"] == "The Unix Philosophy" }.not_nil!["content"].as_s.should contain "Henry Spencer"
+      docs.map(&.["title"].as_s).sort!.should eq ["About", "History of Unix, BSD, GNU, and Linux", "The Unix Philosophy"]
+      docs.find! { |d| d["title"] == "The Unix Philosophy" }["content"].as_s.should contain "Henry Spencer"
       xml = File.read(File.join(outdir, "index.xml"))
       xml.should contain "<title>Minima Example</title>"
       xml.should contain "<pubDate>Tue, 01 Aug 2023"

@@ -7,7 +7,7 @@ require "crinja"
 #     sort by an attribute some pages lack puts those pages last instead of
 #     raising.
 struct Crinja::Value
-  private def compare(a, b)
+  private def compare(a, b) # ameba:disable Metrics/CyclomaticComplexity
     a_missing = a.nil? || a.is_a?(Undefined)
     b_missing = b.nil? || b.is_a?(Undefined)
     if a_missing || b_missing

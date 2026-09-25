@@ -21,7 +21,7 @@ describe SSG::Site do
   end
 
   it "gives resource directories without pages to the nearest ancestor page" do
-    home.resources.map(&.rel_path).sort.should eq ["about/photo.png", "assets/a.css", "feed.xml"]
+    home.resources.map(&.rel_path).sort!.should eq ["about/photo.png", "assets/a.css", "feed.xml"]
     feed = home.resource("feed.xml").not_nil!
     feed.resolved.processed?.should be_true
     feed.url.should eq "/feed.xml"
@@ -39,7 +39,7 @@ describe SSG::Site do
 
   it "attaches resources, including nested directories, to the page directory" do
     hello = site.find("blog/hello").not_nil!
-    hello.resources.map(&.rel_path).sort.should eq ["attach/data.txt", "img/x.png", "summary.txt"]
+    hello.resources.map(&.rel_path).sort!.should eq ["attach/data.txt", "img/x.png", "summary.txt"]
     hello.resource("img/x.png").not_nil!.url.should eq "/blog/hello/img/x.png"
   end
 

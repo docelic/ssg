@@ -47,11 +47,10 @@ module SSG
 
     # Front matter dates may be YAML timestamps (already Time) or strings.
     def self.time?(any : YAML::Any?) : Time?
-      return nil unless any
+      return unless any
       case raw = any.raw
       when Time   then raw
       when String then parse_time(raw)
-      else             nil
       end
     end
 
