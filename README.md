@@ -312,3 +312,9 @@ packages, or point the linker at local symlinks:
     crystal build src/main.cr -o bin/ssg --link-flags "-L$PWD/.link"
 
 Tests: `crystal spec`.
+
+Publishing a GitHub release runs `.github/workflows/release.yml`, which
+attaches binaries to it: static Linux builds for x86_64 and aarch64,
+verified in a Debian 12 container before upload, and macOS builds for
+arm64 and x86_64 with all Homebrew libraries linked in, so none of them
+need anything installed on the target machine.

@@ -1,0 +1,159 @@
+# Builds ssg for each platform when a release is published and attaches the
+# binaries to it. Re-run for an existing release with "Run workflow" and its
+# tag.
+#
+# Linux binaries are fully static (musl, built in the Alpine Crystal image)
+# and are run inside a debian:12 container before they are uploaded, so a
+# published binary is known to work on Debian 12 and later.
+#
+# macOS binaries are built with Homebrew Crystal, but every Homebrew library
+# is linked statically so the result depends only on system frameworks.
+name: Release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to attach binaries to
+        required: true
+
+permissions:
+  contents: write
+
+env:
+  TAG: ${{ github.event.release.tag_name || inputs.tag }}
+
+jobs:
+  build-linux:
+    name: build linux-${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {arch: x86_64,  runner: ubuntu-latest}
+          - {arch: aarch64, runner: ubuntu-24.04-arm}
+    container: crystallang/crystal:latest-alpine
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install native libraries
+        run: apk add --no-cache libsass-dev g++ file
+
+      - name: Build
+        run: |
+          shards install --without-development
+          crystal build --release --no-debug --static src/main.cr -o ssg \
+            --link-flags "-lstdc++"
+          file ssg
+          file ssg | grep -q 'statically linked'
+          ./ssg version
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux-${{ matrix.arch }}
+          path: ssg
+          if-no-files-found: error
+
+  test-linux:
+    name: test linux-${{ matrix.arch }} on debian 12
+    needs: build-linux
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {arch: x86_64,  runner: ubuntu-latest}
+          - {arch: aarch64, runner: ubuntu-24.04-arm}
+    # Bare image, nothing installed: the binary has to bring everything.
+    container: debian:12
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-${{ matrix.arch }}
+
+      - name: Run the binary
+        run: |
+          chmod +x ssg
+          ./ssg version
+          ./ssg build -s example
+          test -f example/public/index.html
+
+  upload-linux:
+    name: upload linux-${{ matrix.arch }}
+    needs: test-linux
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x86_64, aarch64]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: linux-${{ matrix.arch }}
+
+      - name: Package and upload
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          chmod +x ssg
+          name="ssg-${TAG}-linux-${{ matrix.arch }}"
+          tar czf "$name.tar.gz" ssg README.md
+          sha256sum "$name.tar.gz" > "$name.tar.gz.sha256"
+          gh release upload "$TAG" "$name.tar.gz" "$name.tar.gz.sha256" --clobber
+
+  macos:
+    name: macos-${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {arch: arm64,  runner: macos-latest}
+          - {arch: x86_64, runner: macos-15-intel}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: crystal-lang/install-crystal@v1
+
+      - name: Install native libraries
+        run: brew install libsass libyaml openssl@3 bdw-gc libevent pcre2
+
+      # The linker searches -L directories in order, so a directory holding
+      # only the static archives makes it pick those over Homebrew's dylibs.
+      - name: Collect static archives
+        run: |
+          mkdir static-libs
+          for f in libsass libyaml openssl@3 bdw-gc libevent pcre2; do
+            ln -s "$(brew --prefix "$f")"/lib/*.a static-libs/
+          done
+          ls -l static-libs
+
+      - name: Build
+        run: |
+          shards install --without-development
+          crystal build --release --no-debug src/main.cr -o ssg \
+            --link-flags "-L$PWD/static-libs -lc++"
+          otool -L ssg
+          if otool -L ssg | grep -E '/opt/homebrew|/usr/local/(opt|Cellar)'; then
+            echo "binary still depends on Homebrew libraries" >&2
+            exit 1
+          fi
+          ./ssg version
+          ./ssg build -s example
+          test -f example/public/index.html
+
+      - name: Package and upload
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          name="ssg-${TAG}-macos-${{ matrix.arch }}"
+          tar czf "$name.tar.gz" ssg README.md
+          shasum -a 256 "$name.tar.gz" > "$name.tar.gz.sha256"
+          gh release upload "$TAG" "$name.tar.gz" "$name.tar.gz.sha256" --clobber
