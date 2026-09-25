@@ -1,0 +1,20 @@
+{% extends "base.html.j2" %}
+{% block main %}
+<h1>{{ page.title }}</h1>
+{{ content }}
+<ul>
+{% for p in paginator.pages %}
+  <li><a href="{{ p.url }}">{{ p.title }}</a>
+    {% if p.term %}({{ p.pages | length }}){% elif p.date %}<small>{{ p.date | date }}</small>{% endif %}
+    {% if p.kind == "page" and p.summary %}<br><em>{{ p.summary | truncate(80) }}</em>{% endif %}
+  </li>
+{% endfor %}
+</ul>
+{% if paginator.total > 1 %}
+<nav class="pagination">
+  {% if paginator.prev_url %}<a href="{{ paginator.prev_url }}">&larr; newer</a>{% endif %}
+  page {{ paginator.number }} of {{ paginator.total }}
+  {% if paginator.next_url %}<a href="{{ paginator.next_url }}">older &rarr;</a>{% endif %}
+</nav>
+{% endif %}
+{% endblock %}

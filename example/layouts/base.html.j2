@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}{{ page.title }} | {{ site.title }}{% endblock %}</title>
+  <link rel="stylesheet" href="{{ "/css/style.css" | absurl }}">
+  <link rel="stylesheet" href="{{ "/css/highlight.css" | absurl }}">
+</head>
+<body>
+  <header>
+    <a href="/">{{ site.title }}</a>
+    <nav>
+      {% for s in site.home.children %}<a href="{{ s.url }}">{{ s.title }}</a> {% endfor %}
+    </nav>
+  </header>
+  <main>
+    {% block main %}{% endblock %}
+  </main>
+  <footer>By {{ site.params.author }}</footer>
+</body>
+</html>

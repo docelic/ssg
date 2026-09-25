@@ -1,0 +1,17 @@
+{#- "Article collection" box: the series this page belongs to, with all parts in weight order. -#}
+{% set series_terms = page.terms_for("series") %}
+{% if series_terms %}
+{% set descriptions = site.data.series | default({}) %}
+<div class="series">
+  <h2>Article Collection</h2>
+  <p>This article is part of the following series:</p>
+  {% for s in series_terms %}
+  <h4>{{ loop.index }}. {{ descriptions[s.term] | default(s.term) | title }}</h4>
+  <ul class="list-decimal">
+    {% for post in s.pages | sort(attribute="weight") %}
+    <li><a href="{{ post.url }}">Part {{ loop.index }}: {{ post.title }}</a>{% if post.url == page.url %} (this article){% endif %}</li>
+    {% endfor %}
+  </ul>
+  {% endfor %}
+</div>
+{% endif %}

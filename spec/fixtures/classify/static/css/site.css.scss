@@ -1,0 +1,4 @@
+@import "vars";
+@import "theme_mixins";
+.nested { .child { color: $prime; } }
+.mixed { @include theme-mixin; }

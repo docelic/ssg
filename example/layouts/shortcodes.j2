@@ -1,0 +1,14 @@
+{# Shortcodes are plain Jinja macros. They see `page` and `site`. #}
+
+{% macro L(url, title=none) %}<a href="{{ url }}">{{ title | default(url, true) }}</a>{% endmacro %}
+
+{% macro R(name, title=none) %}{% set target = site.page(name) %}<a href="{{ target.url }}">{{ title | default(target.title, true) }}</a>{% endmacro %}
+
+{% macro bq(cite=none) %}<blockquote class="text">
+{{ caller() | trim | escape | replace("\n", "<br>") | safe }}{% if cite %}
+<cite>{{ cite }}</cite>{% endif %}
+</blockquote>{% endmacro %}
+
+{% macro series() %}{% if site.data.series %}<ul>
+{% for item, desc in site.data.series %}<li><a href="/series/{{ item | slugify }}/">#{{ item }}</a> - {{ desc }}</li>
+{% endfor %}</ul>{% endif %}{% endmacro %}

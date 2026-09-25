@@ -1,0 +1,16 @@
+{% set external = page.links | selectattr("external") | list %}
+{% if external %}
+<div>
+  <h2>Automatic Links</h2>
+  The following links appear in the article:
+  <p>
+  {% for l in external %}
+    {% if l.text != l.url %}
+    {{ loop.index }}. {{ l.text | title }} - <a href="{{ l.url }}">{{ l.url }}</a><br>
+    {% else %}
+    {{ loop.index }}. <a href="{{ l.url }}">{{ l.url }}</a><br>
+    {% endif %}
+  {% endfor %}
+  </p>
+</div>
+{% endif %}

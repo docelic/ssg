@@ -1,0 +1,824 @@
+---
+title: "History of Unix, BSD, GNU, and Linux"
+slug: "unix-history"
+aliases: ["/unix-history/"]
+date: 2023-07-23
+lastmod: 2026-01-02
+draft: false
+toc: true
+description: "Unix history. CTSS, BTS, Multics, ITS, TENEX, Unix, C, BSD, Unix wars, Motif, CDE, Plan 9, Inferno, GNU, Linux. AT&T, Bell Labs, CSRG, UCB, Sun Microsystems, Novell."
+series: ["unix"]
+weight: 1
+tags: ["unix", "bsd", "gnu", "linux", "history"]
+---
+
+## Introduction
+
+This article provides a good, conceptual understanding of the history of Unix, BSD, GNU, and Linux from the origins in the 1960s to today.
+
+It focuses on practical, understandable parts. It is not overly long, but still mentions all important details.
+
+## Early History (Before Unix)
+
+### Batch Processing
+
+Early computers in the 1950s did not support multiple users or programs. A person would arrive at the computer,
+load program via {{ L("https://en.wikipedia.org/wiki/Computer_programming_in_the_punched_card_era", "punched paper cards") }},
+load data via magnetic or paper tape, run processing, collect printed output, and leave.
+
+As computers became faster, preparing to run programs and later collecting their results started taking a large percentage of time.
+So programs called *monitors*, the precursors to operating systems, were developed to process series or "batches" of programs.
+Batches were prepared on {{ L("https://en.wikipedia.org/wiki/Magnetic-tape_data_storage", "magnetic tapes") }} in advance, saving available computer time for actual computation.
+
+This method later became known as {{ L("https://en.wikipedia.org/wiki/Batch_processing", "batch processing") }}.
+
+In practice, batch processing was inconvenient. It still required inputting both program code and data to process, it didn't support interactive use, and users typically didn't even have direct access to machines &mdash; they gave programs to *operators* who scheduled them on available computers and later handed back the results or failure reports. If direct access was available, it was only during the night in single user mode, while the operators were off duty and the machines were kept running 24/7 to avoid power-cycling tens or even hundreds of kilowatts-rated systems.
+
+### Software Licensing
+
+In the 1950s and 1960s, software and compilers were delivered as part of hardware purchases without separate fees.
+
+By purchasing hardware, customers became tied to the vendor-provided ecosystem. Contracts included everything needed for a running installation -- support, engineering time, debugging tools, etc.. And source code made fixing bugs or adding missing features possible.
+
+<!-- The code was available but generally not {{ L("https://en.wikipedia.org/wiki/Free_and_open-source_software", "free and open source software") }}. -->
+The first example of {{ L("https://en.wikipedia.org/wiki/Free_and_open-source_software", "free and open source software") }} is believed to have been the {{ L("https://en.wikipedia.org/wiki/A-0_System", "A-2 system") }}, developed at the {{ L("https://en.wikipedia.org/wiki/UNIVAC", "UNIVAC") }} division of {{ L("https://en.wikipedia.org/wiki/Remington_Rand", "Remington Rand") }} in 1953. Customers were invited to send source code improvements back to UNIVAC.
+
+Later, almost all IBM mainframe software was also distributed with source code.
+
+Some university computer labs had a policy of requiring all installed programs to come with published source code.
+
+Computer manufacturers were also supportive of their customers forming user groups. {{ L("https://en.wikipedia.org/wiki/IBM_701", "IBM 701") }} and {{ L("https://en.wikipedia.org/wiki/IBM_704", "IBM 704") }} customers had {{ L("https://en.wikipedia.org/wiki/SHARE_user_group", "SHARE") }} user group founded in 1955 and {{ L("https://en.wikipedia.org/wiki/Digital_Equipment_Corporation", "Digital Equipment Corporation (DEC)") }} had {{ L("https://en.wikipedia.org/wiki/DECUS", "DECUS") }} user group founded in 1961. Into the 1970s there were a number of user groups formed to get users involved and facilitate the exchange of software.
+
+## Leading up to Unix
+
+With somewhat better availability and lower prices of computers, users wanted to replace batch processing with direct, interactive access.
+
+This was done using two different approaches. One approach was to build single-user {{ L("https://en.wikipedia.org/wiki/Microcomputer", "microcomputers") }} as cheaply as possible, disregarding their low memory and performance, and sell them to hobbyists.
+
+The other approach was to enable multiple users to share bigger, more capable machines. Those were {{ L("https://en.wikipedia.org/wiki/Mainframe", "mainframes") }} and {{ L("https://en.wikipedia.org/wiki/Minicomputers", "minicomputers") }}. In the early 1960s the first advanced operating systems became available and they soon had
+{{ L("https://en.wikipedia.org/wiki/Time-sharing", "time-sharing") }}, {{ L("https://en.wikipedia.org/wiki/Computer_multitasking", "multi-tasking") }}, and {{ L("https://en.wikipedia.org/wiki/Multi-user_software", "multi-user") }} characteristics.
+
+First such systems were:
+
+### Compatible Time-Sharing System (CTSS)
+
+In 1961 at {{ L("https://en.wikipedia.org/wiki/Massachusetts_Institute_of_Technology", "MIT") }}, {{ L("https://en.wikipedia.org/wiki/John_McCarthy_(computer_scientist)", "John McCarthy") }}, {{ L("https://en.wikipedia.org/wiki/Jack_Dennis", "Jack Dennis") }}, and {{ L("https://en.wikipedia.org/wiki/Fernando_J._Corbat%C3%B3", "Fernando Corbató") }} talked about allowing multiple computer users to use a system interactively and behave as if they were the only user.
+
+In November 1961, Corbató's {{ L("https://en.wikipedia.org/wiki/Compatible_Time-Sharing_System", "Compatible Time-Sharing System (CTSS)") }} was the first modern, multi-user, general-purpose system, built on a modified {{ L("https://en.wikipedia.org/wiki/IBM_709", "IBM 709") }} computer.
+("Compatible Time Sharing" was referring to compatibility with batch processing -- the OS could support both at the same time.)
+
+There exists a recorded {{ L("https://www.youtube.com/watch?v=Q07PhW5sCEk", "video demonstration and explanation of CTSS at MIT from 1963") }}.
+
+Installations of early operating systems could be counted by hand. For example, for more than 10 years CTSS ran on only two machines at MIT, with some outside users
+connecting from California, South America, the University of Edinburgh, and the University of Oxford.
+
+CTSS' novel features are summarized in the Wikipedia article {{ L("https://en.wikipedia.org/wiki/Compatible_Time-Sharing_System#Features", "CTSS Features") }}.
+
+### Berkeley Timesharing System (BTS)
+
+{{ L("https://en.wikipedia.org/wiki/Berkeley_Timesharing_System", "Berkeley Timesharing System") }} was a time-sharing operating system implemented between 1964 and 1967 as part of {{ L("https://en.wikipedia.org/wiki/Project_Genie", "Project Genie") }} at the {{ L("https://en.wikipedia.org/wiki/University_of_California%2C_Berkeley", "University of California, Berkeley (UCB)") }}. It was the first commercial timesharing system that allowed general-purpose user programming.
+
+Students who worked on the Berkeley Timesharing System included {{ L("https://en.wikipedia.org/wiki/Chuck_Thacker", "Charles P. Thacker") }}, {{ L("https://en.wikipedia.org/wiki/L._Peter_Deutsch", "L. Peter Deutsch") }}, and {{ L("https://en.wikipedia.org/wiki/Butler_Lampson", "Butler Lampson") }}.
+
+Speaking of BTS' features that influenced Unix, BTS consisted of a _monitor_ (roughly an OS {{ L("https://en.wikipedia.org/wiki/Kernel_(operating_system)", "kernel") }}) and an _executive_ (roughly a command-line interface), _fork()_ and _exec()_ calls were separate, and the text editor {{ L("https://en.wikipedia.org/wiki/QED_(text_editor)", "QED") }} (a predecessor of {{ L("https://en.wikipedia.org/wiki/Ed_(text_editor)", "ed") }}, {{ L("https://en.wikipedia.org/wiki/Ex_(text_editor)", "ex") }}, and {{ L("https://en.wikipedia.org/wiki/Vi_(text_editor)", "vi") }}) was first implemented for BTS.
+
+### Multiplexed Information and Computing Service (Multics)
+
+{{ L("https://en.wikipedia.org/wiki/Multics", "Multics") }} was another early time-sharing
+operating system started in 1964 to fix and improve on CTSS' design. It was a cooperative project between {{ L("https://en.wikipedia.org/wiki/Project_MAC", "MIT CSAIL's Project MAC") }}, {{ L("https://en.wikipedia.org/wiki/General_electric", "General Electric") }},
+and {{ L("https://en.wikipedia.org/wiki/Bell_Labs", "Bell Labs") }}. (Bell Labs at the time was a subsidiary of {{ L("https://en.wikipedia.org/wiki/AT%26T", "AT&T") }} and AT&T's manufacturing and supply company {{ L("https://en.wikipedia.org/wiki/Western_Electric", "Western Electric") }}.)
+
+However, Multics required special hardware (a {{ L("https://en.wikipedia.org/wiki/GE_645", "GE 645") }} machine), and the overall design proved to be expensive and impractical.
+
+Bell withdrew from the project after 5 years, in 1969, as it became clear that Multics would not reach their goals in the short term.
+Shortly after, in 1970, General Electric sold its computer division to {{ L("https://en.wikipedia.org/wiki/Honeywell", "Honeywell") }} who offered Multics commercially with limited success.
+The project continued as it was also funded by the US government who demanded a new, secure operating system. The last Multics installation was shut down in the year 2000.
+
+{{ L("https://en.wikipedia.org/wiki/Ken_Thompson", "Ken Thompson") }} later described Multics as a project that tried to carry out research in not one but four different areas at the same time, and that was "overdesigned and overbuilt and over everything, close to unusable".
+
+Multics' novel features are summarized in the Wikipedia article {{ L("https://en.wikipedia.org/wiki/Multics#Novel_ideas", "Multics Novel Ideas") }}.
+
+### Incompatible Timesharing System (ITS)
+
+{{ L("https://en.wikipedia.org/wiki/Incompatible_Timesharing_System", "Incompatible Timesharing System (ITS)") }} was a time-sharing operating system started in 1967 and developed principally by the {{ L("https://en.wikipedia.org/wiki/MIT_AI_Lab", "MIT AI Lab") }} and {{ L("https://en.wikipedia.org/wiki/Project_MAC", "MIT CSAIL Project MAC") }}.
+
+Its development was initiated by staff who disagreed with the direction taken by Project MAC's Multics. The word "Incompatible" was chosen as a humorous complement to the MIT's earlier "Compatible" Time-Sharing System (CTSS).
+
+ITS was written in the assembly language for {{ L("https://en.wikipedia.org/wiki/PDP-6", "PDP-6") }} and later {{ L("https://en.wikipedia.org/wiki/PDP-10", "PDP-10") }} {{ L("https://en.wikipedia.org/wiki/Mainframe", "mainframes") }}.
+(DEC PDP-10s were popular in education, research, and on the {{ L("https://en.wikipedia.org/wiki/ARPANET", "ARPANet") }}, and were hugely influential on later hardware and software.)
+
+The wide-open philosophy of ITS and its collaborative online community were a further major influence on the {{ L("https://en.wikipedia.org/wiki/Hacker_culture", "hacker culture") }}, as described in {{ L("https://en.wikipedia.org/wiki/Hackers:_Heroes_of_the_Computer_Revolution", "Steven Levy's book 'Hackers'") }}. They were predecessors of the {{ L("https://en.wikipedia.org/wiki/Free_and_open-source_software", "free and open-source software") }}, {{ L("https://en.wikipedia.org/wiki/Open-design_movement", "open design") }}, and {{ L("https://en.wikipedia.org/wiki/Wiki", "Wiki") }} movements.
+
+ITS' novel features are summarized in the Wikipedia article {{ L("https://en.wikipedia.org/wiki/Incompatible_Timesharing_System#Significant_technical_features", "ITS Significant Technical Features") }}.
+
+### TENEX
+
+{{ L("https://en.wikipedia.org/wiki/TENEX_(operating_system)", "TENEX") }} was an operating system started in 1969 by {{ L("https://en.wikipedia.org/wiki/Raytheon_BBN", "Bolt Beranek Newman (BBN)") }} for DEC PDP-10 machines. The name, short for "ten-extended", came from its initial relation to (and an upgrade path from) the DEC {{ L("https://en.wikipedia.org/wiki/TOPS-10", "TOPS-10") }} operating system. By 1976, TENEX moved to DEC and was released in their new and different operating system {{ L("https://en.wikipedia.org/wiki/Tops-20", "TOPS-20") }}.
+
+TENEX was based heavily on ideas from {{ L("https://en.wikipedia.org/wiki/Multics", "Multics") }} and the mentioned {{ L("https://en.wikipedia.org/wiki/Project_Genie", "Project Genie") }}. From Genie it borrowed almost identical code and then improved {{ L("https://en.wikipedia.org/wiki/Memory_management", "memory management") }} with {{ L("https://en.wikipedia.org/wiki/Mmap", "mmapping") }}, {{ L("https://en.wikipedia.org/wiki/Demand_paging", "demand paging") }}, and automatic {{ L("https://en.wikipedia.org/wiki/Page_fault", "page fault") }} restarts.
+It also brought general improvements to the {{ L("https://en.wikipedia.org/wiki/Hierarchical_file_system", "hierarchical file system") }}, {{ L("https://en.wikipedia.org/wiki/Access-control_list", "access control lists") }}, remote file access, program debugging and tracing, terminal handling and line editing, and implemented user conveniences such as command line {{ L("https://en.wikipedia.org/wiki/Command-line_completion", "completion") }}, {{ L("https://en.wikipedia.org/wiki/Command_history", "history") }}, and abbreviations (aliasing).
+
+CTSS, BTS, Multics, ITS, and TENEX have influenced all later operating systems, from {{ L("https://en.wikipedia.org/wiki/Mainframe", "mainframes") }} to {{ L("https://en.wikipedia.org/wiki/Microcomputer", "microcomputers") }}.
+
+## Unix
+
+### What is Unix?
+
+Initially, {{ L("https://en.wikipedia.org/wiki/Unix", "Unix") }} was a general-purpose {{ L("https://en.wikipedia.org/wiki/Time-sharing", "time-sharing") }}, {{ L("https://en.wikipedia.org/wiki/Computer_multitasking", "multi-tasking") }}, {{ L("https://en.wikipedia.org/wiki/Multi-user_software", "multi-user") }} operating system started in 1968 at the {{ L("https://en.wikipedia.org/wiki/Bell_Labs", "AT&T Bell Labs") }} research center. It included the Unix {{ L("https://en.wikipedia.org/wiki/Kernel_(operating_system)", "kernel") }} and a set of utilities for the whole system to be useful. In the period from 1971 to 1989 Bell Labs published 10 releases of Unix, later named {{ L("https://en.wikipedia.org/wiki/Research_Unix", "Research Unix") }}.
+
+But AT&T at the time was a telecommunications monopoly in the US. Its phone service fees were regulated, and by a {{ L("https://www.nytimes.com/1956/01/25/archives/att-settles-antitrust-case-shares-patents-us-hails-consent-decree.html", "Jan 1956") }} {{ L("https://en.wikipedia.org/wiki/Consent_decree", "consent decree") }} AT&T was prohibited from expanding commercially into other industries, and was obliged to license its 8,600 existing and future patents to others without collecting royalties. So AT&T licensed Unix source code to numerous companies and universities, who in turn created their own, conceptually similar, but separate operating systems having names such as {{ L("https://en.wikipedia.org/wiki/Berkeley_Software_Distribution", "BSD") }}, {{ L("https://en.wikipedia.org/wiki/Sunos", "SunOS") }}, {{ L("https://en.wikipedia.org/wiki/Solaris_(operating_system)", "Solaris") }}, {{ L("https://en.wikipedia.org/wiki/Ultrix", "Ultrix") }}, {{ L("https://en.wikipedia.org/wiki/Irix", "IRIX") }}, {{ L("https://en.wikipedia.org/wiki/HP-UX", "HP-UX") }}, {{ L("https://gunkies.org/wiki/Dell_UNIX", "Dell UNIX") }}, {{ L("https://en.wikipedia.org/wiki/AIX", "AIX") }}, {{ L("https://en.wikipedia.org/wiki/DYNIX", "DYNIX") }}, {{ L("https://en.wikipedia.org/wiki/Tru64_UNIX", "Digital UNIX") }}, {{ L("https://en.wikipedia.org/wiki/NeXTSTEP", "NeXTSTEP") }}, and {{ L("https://en.wikipedia.org/wiki/MacOS", "macOS") }}.
+
+When Unix appeared in the '70s, it revolutionized the industry:
+
+- Quoting {{ L("https://en.wikipedia.org/wiki/Ken_Thompson", "Ken Thompson") }}, "It meant the beginning of an end of large computer centers where bureaucracy behind multi-million-dollar machines controlled computing". Unlike for the expensive {{ L("https://en.wikipedia.org/wiki/Mainframe", "mainframes") }}, Unix was intended for, comparatively, more affordable and practical {{ L("https://en.wikipedia.org/wiki/Minicomputers", "minicomputers") }} and, later, {{ L("https://en.wikipedia.org/wiki/Workstation", "workstations") }}
+
+- It was multi-platform. Before Unix, computer manufacturers typically provided their own operating system bundled with the hardware and there was no any compatibility between manufacturers; sometimes not even between offerings from the same manufacturer. Now users could obtain any computer and install or port Unix to it
+
+- It was small and understandable. It could be read line by line, modified, recompiled, and reinstalled, giving users total control over the whole system
+
+- And its source code was available to universities for a nominal fee, generating long-lasting interest, enthusiasm, and hacker culture.
+This later translated into long-lasting business demand and, as an offshoot, also created the Unix workstation market that dominated the IT industry in the period from 1985 to 1995
+
+But those were circumstantial benefits. The true significance of Unix was in its design, which was based on simple and incredibly powerful abstractions.
+It provided users with a unique combination of convenience, simplicity, and power unmatched by any other system, which later became known as the {{ R("unix-philosophy", "Unix philosophy") }}.
+
+As Dennis Ritchie wrote in {{ L("https://dl.acm.org/doi/10.1145/361011.361061", "The UNIX time-sharing system") }} in 1974, "Unix contained a number of features very seldom offered even by larger systems".
+Or as {{ L("https://en.wikipedia.org/wiki/Doug_McIlroy", "Doug McIlroy") }} said, "Unix was an improvement on its predecessors and most of its successors".
+
+After ~20 years of success, in the late 1990s Unix saw a sharp and permanent commercial decline, but it already inspired creation of numerous {{ L("https://en.wikipedia.org/wiki/Unix-like", "Unix-like") }} operating systems that followed the {{ R("unix-philosophy", "Unix philosophy") }}, but did not contain any AT&T code. Those systems have since replaced and far surpassed the original Unix.
+
+Most important Unix-like operating systems today are the open source {{ L("https://en.wikipedia.org/wiki/Gnu/linux", "GNU/Linux") }} distributions, {{ L("https://en.wikipedia.org/wiki/Bsd", "BSD") }} distributions released after 1994, and {{ L("https://en.wikipedia.org/wiki/Android_(operating_system)", "Android") }}.
+Notable proprietary OSes are {{ L("https://en.wikipedia.org/wiki/MacOS", "Apple macOS") }} (and its embedded/mobile variants), traditional Unixes {{ L("https://en.wikipedia.org/wiki/Oracle_Solaris", "Oracle Solaris") }}, {{ L("https://en.wikipedia.org/wiki/HP-UX", "HP-UX") }}, and {{ L("https://en.wikipedia.org/wiki/IBM_AIX", "IBM AIX") }}, and a real-time Unix-like OS {{ L("https://blackberry.qnx.com/", "QNX") }}.
+
+Today, the term Unix can be used informally to refer to all Unix and Unix-like systems. Their exact names and full listing can be seen in the {{ L("https://en.wikipedia.org/wiki/List_of_Unix_systems", "List of Unix systems") }}.
+
+### Origins of Unix
+
+{{ L("https://en.wikipedia.org/wiki/AT%26T_Corporation", "AT&T Corporation") }}, once the world's largest telecommunications company and employing a million people, was established in 1885 through merging of local telephone companies across the United States. To meet the challenges of providing nation-wide telecommunication services, in 1925 it established {{ L("https://en.wikipedia.org/wiki/Bell_Labs", "Bell Labs") }} as a research and development subsidiary.
+
+The genius of {{ L("https://en.wikipedia.org/wiki/Bell_Labs", "Bell Labs") }}' management and staff cannot be overstated.
+Throughout the 20th century, Bell Labs and its researchers have been credited with the development of radio astronomy, transistor, laser, photovoltaic cell, cellphone, communications satellites, charge-coupled device (CCD), information theory, Unix, programming languages B, C, C++, S, SNOBOL, AWK, AMPL, and others. Eleven {{ L("https://en.wikipedia.org/wiki/Nobel_Prize", "Nobel Prizes") }} and five {{ L("https://en.wikipedia.org/wiki/Turing_Award", "Turing Awards") }} have been awarded for work completed at Bell Labs.
+
+In 1969, after a withdrawal from the expensive and failed project {{ L("https://en.wikipedia.org/wiki/Multics", "Multics") }}, the last remaining Bell Labs' Multics participants
+{{ L("https://en.wikipedia.org/wiki/Ken_Thompson", "Ken Thompson") }},
+{{ L("https://en.wikipedia.org/wiki/Dennis_Ritchie", "Dennis Ritchie") }},
+{{ L("https://en.wikipedia.org/wiki/Joe_Ossanna", "Joe Ossanna") }}, and the department head
+{{ L("https://en.wikipedia.org/wiki/Doug_McIlroy", "Doug McIlroy") }}
+found themselves without a primary project to work on, but remained interested in operating systems.
+Thompson and Ritchie wanted a simple, powerful, interactive system with a good programming environment, around which a user community could form.
+
+At Bell Labs, 26-year old Thompson found a group of about 10 geographically separate, rarely used, and by then obsolete {{ L("https://en.wikipedia.org/wiki/PDP-7", "DEC PDP-7") }} minicomputers. They were used as remote job entry stations for electric circuits analysis -- data would be input into PDP-7s and sent via telephone lines at 2000 baud to the main {{ L("https://en.wikipedia.org/wiki/IBM_7090#IBM_7094", "IBM 7094") }} machine for computation. Thompson used the PDP-7 machine at hand, whose configuration costed ~$250k in 1965, to get familiar with the PDP-7 architecture by porting games:
+
+Ritchie's historical record {{ L("https://www.bell-labs.com/usr/dmr/www/hist.html", "The Evolution of the Unix Time-sharing System") }} mentions a port of 2D game {{ L("https://en.wikipedia.org/wiki/Space_Travel_(video_game)", "Space Travel") }}, which Thompson had previously written for a {{ L("https://en.wikipedia.org/wiki/GE-600_series", "GE 635") }} machine and which Ritchie described in more detail in {{ L("https://www.nokia.com/bell-labs/about/dennis-m-ritchie/spacetravel.html", "Space Travel: Exploring the solar system and the PDP-7") }}. Thompson and Ritchie used the GE machine to create a paper-tape executable of Space Travel that would run directly on the PDP-7 hardware.
+
+{{ L("https://www.youtube.com/watch?v=EY6q5dv_B-o", "Thompson's 2019 interview") }} mentions another, later game, a 3D clone of {{ L("https://en.wikipedia.org/wiki/Spacewar!", "Spacewar!") }}, which was originally a 2D game written by {{ L("https://en.wikipedia.org/wiki/Steve_Russell_(computer_scientist)", "Steve Russell") }} for a {{ L("https://en.wikipedia.org/wiki/PDP-1", "DEC PDP-1") }} minicomputer. Like the original Spacewar!, Thompson's game was multi-player, played via telephone lines between any two machines in the group. The space was a 3D cube and large; players sometimes exchanged coordinates so they could fly towards and find each other.
+
+The PDP-7 machine also happened to have a high-performance disk. Thompson wrote a scheduling algorithm to maximize throughput from it, then wrote the surrounding test and support utilities, and in cooperation with {{ L("https://en.wikipedia.org/wiki/Rudd_Canaday", "Rudd Canaday") }} developed a filesystem. Finally, he realized he was three weeks away from a self-supported operating system. While his wife and child were away for three weeks visiting his family and relatives on the US west coast, Thompson added the _exec_ call to differentiate between programs and data, and then wrote a loader, an editor, and an assembler, each in one week. (Some sources report "shell" or "kernel overlay" instead of "loader".) With an in-kernel {{ L("https://gunkies.org/wiki/Shell", "shell") }} for two stations (the localhost and a {{ L("https://en.wikipedia.org/wiki/Teletype_Model_33", "Model 33 teletype") }}), the prototype {{ L("https://gunkies.org/wiki/PDP-7_UNIX", "Version 0 Unix") }} came into existence.
+
+({{ L("https://en.wikipedia.org/wiki/Teletype_Model_33", "Model 33 teletype") }} was a computer-controlled electro-mechanical typewriter that passed any key presses to the computer and printed any output to paper rolls, in uppercase, 10 characters per second. A later {{ L("https://en.wikipedia.org/wiki/Teletype_Model_37", "Model 37") }} introduced a complete character set, lowercase letters, and a 50% speed improvement, but as  {{ L("https://en.wikipedia.org/wiki/Brian_Kernighan", "Brian Kernighan") }} said, both models were "an upper-body exercise to use". Their manufacturer, {{ L("https://en.wikipedia.org/wiki/Teletype_Corporation", "Teletype Corporation") }}, was part of AT&T and teletypes were used widely for communication and connecting to computers.)
+
+> The name Unix (originally Unics) is itself a pun on Multics.
+> The U in Unix is rumored to stand for *uniplexed* as opposed to the *multiplexed* of Multics,
+> further underscoring the designers' rejections of Multics' complexity in favor of a more
+> straightforward and workable approach for smaller computers.
+
+{{ L("https://gunkies.org/wiki/PDP-7_UNIX", "V0 Unix") }} existed for about one year and ran on {{ L("https://en.wikipedia.org/wiki/PDP-7", "DEC PDP-7") }}, two {{ L("https://en.wikipedia.org/wiki/PDP-9", "DEC PDP-9") }}, and one {{ L("https://en.wikipedia.org/wiki/PDP-15", "DEC PDP-15") }} computer at Bell Labs. There is a {{ L("archive/www.youtube.com/LCM+L PDP-7 booting and running UNIX Version 0 [pvaPaWyiuLA].webm", "video of V0 Unix running on a PDP-7") }} available.
+
+Based on experience from Multics, Bell Labs was no longer interested in funding operating systems research, so Thompson's group's request for a purchase of {{ L("https://en.wikipedia.org/wiki/PDP-10", "DEC PDP-10") }} or {{ L("https://en.wikipedia.org/wiki/SDS_Sigma_series", "SDS Sigma 7") }} mainframe was not approved and the work on Unix initially went on without management support.
+
+The group continued developing Unix on the PDP-7, and even though it was ~10 times slower than other machines in the computer center, the system was used by impressive names -- Thompson, Ritchie, McIlroy, {{ L("https://en.wikipedia.org/wiki/Robert_Morris_(cryptographer)", "Robert Morris") }} senior, and few others, up to two users at a time.
+
+In the early 1970, Thompson and Ritchie managed to get funding for a just-announced {{ L("https://en.wikipedia.org/wiki/PDP-11", "DEC PDP-11/20") }} with 24 kB of primary memory (16 kB for the OS, 8 kB for programs) and 512 kB disk. 
+The configuration ordered by the department costed about $65,000 at the time, which was a magnitude less than other proposals the group had submitted without success in the previous one or two years (although all were well within budget).
+
+But the key to getting the request approved was not the amount. (AT&T was spending an estimated 2.8% on research and development, and Bell Labs was financed with 1% from tax on telephones and calls in the US. Bell Labs employees were entitled to personal yearly budget in the amount equal to their yearly fully loaded salary, and it was easy to combine 4 or 5 people to reach multi-million dollar budgets for projects.)
+
+Rather, the key was {{ L("https://en.wikipedia.org/wiki/Joe_Ossanna", "Joe Ossanna") }}'s idea to involve the patents department.
+The department needed an adequate system for producing and managing patent applications. As no software was capable of fulfilling the requirements and also auto-formatting text, printing math symbols, and printing line numbers on pages,
+they were planning to purchase a specialized computer.
+
+The Unix group proposed to do it in-house and, as Thompson says, "it was to save money, it wasn't about operating systems (honest! :)), and it was for somebody else. It was a 3-way win impossible to say no to".
+On a side note, these text processing needs were why {{ L("https://en.wikipedia.org/wiki/Joe_Ossanna", "Joe Ossanna") }} wrote {{ L("https://en.wikipedia.org/wiki/Roff_(software)", "nroff and troff") }} document processing systems very early on, and why Unix always had powerful text processing functions.
+
+The project was a great success, supporting concurrent work of 6 users (3 patent editors and the Unix group). A second PDP-11/20 was soon ordered to keep the research and patents work separate, and Unix also started spreading to various AT&T departments.
+
+Unix was originally written in {{ L("https://en.wikipedia.org/wiki/Assembler_(computing)", "assembly language") }}.
+As assembler is architecture-specific, Unix couldn't be ported to other computer architectures without essentially rewriting it.
+
+In 1972, {{ L("https://gunkies.org/wiki/PDP-11/45", "DEC PDP-11/45") }} computer was released and Unix rewritten for it. It was the first hardware able to support Unix without obvious deficiencies and lacking features. Dennis Ritchie designed the {{ L("https://en.wikipedia.org/wiki/C_(programming_language)", "C programming language") }} to separate Unix from platform-specific implementation details.
+
+In 1973, {{ L("https://gunkies.org/wiki/PDP-11/40", "DEC PDP-11/40") }} computer was released and Unix ported to it. The Unix kernel was rewritten in C after two or three failed attempts, enabled by the addition of {{ L("https://en.wikipedia.org/wiki/Struct_(C_programming_language)", "structs") }} to the C language. Utilities were rewritten over the next couple years.
+
+In 1975, {{ L("https://gunkies.org/wiki/PDP-11/70", "DEC PDP-11/70") }} computer was released and Unix ported to it.
+
+In 1977, Unix was ported to {{ L("https://en.wikipedia.org/wiki/IBM_System/360_Model_91", "IBM System 360 Model 91") }} and 32-bit {{ L("https://en.wikipedia.org/wiki/Interdata_8/32", "Interdata 7/32 and 8/32") }}, the first platforms other than the DEC PDP line.
+
+In 1978, {{ L("https://en.wikipedia.org/wiki/Brian_Kernighan", "Brian Kernighan") }} and {{ L("https://en.wikipedia.org/wiki/Dennis_Ritchie", "Dennis Ritchie") }} co-authored the book {{ L("https://en.wikipedia.org/wiki/The_C_Programming_Language", "The C Programming Language") }}, 1st edition.
+
+Starting with the early 1980s and enabled by advancements in hardware, a minimum requirement for Unix workstations became the "3M" -- a megabyte of primary memory, a megapixel display, and a speed of one 1 {{ L("https://en.wikipedia.org/wiki/FLOPS", "MFLOPS") }}.
+
+### AT&T / Bell Labs Unix Releases
+
+As mentioned, in the period from 1971 to 1989 Bell Labs published 10 releases of Unix, later named {{ L("https://en.wikipedia.org/wiki/Research_Unix", "Research Unix") }}.
+
+Internally at Bell Labs, Unix did not have releases or versions -- it was a continuously developed system.
+
+When {{ L("https://en.wikipedia.org/wiki/Doug_McIlroy", "Doug McIlroy") }} organized "{{ L("https://web.archive.org/web/20200601064923/https://www.bell-labs.com/usr/dmr/www/manintro.html", "Unix Programmer's Manuals (UPM)") }}" to be written for the PDP-11 version, editions of manual became versions of Unix they were describing.
+
+The editions of Unix Programmer's Manuals were:
+
+- Nov 1971 - {{ L("https://gunkies.org/wiki/UNIX_First_Edition", "Unix First Edition") }}. The OS contained ~30 system calls in the kernel, half of which were filesystem-related
+
+- Jun 1972 - {{ L("https://gunkies.org/wiki/UNIX_Second_Edition", "Unix Second edition") }}. {{ L("https://www.tuhs.org/Archive/Distributions/Research/Dennis_v2/v2man.pdf", "Unix Programmer's Manual, 2nd edition") }} mentions 10 installations of Unix within AT&T
+
+- Feb 1973 - {{ L("https://gunkies.org/wiki/UNIX_Third_Edition", "Unix Third Edition") }}. The manual mentions 16 installations of Unix within AT&T. Unix {{ L("https://en.wikipedia.org/wiki/Unix_pipe", "pipes") }} were released with this version
+
+- Nov 1973 - {{ L("https://gunkies.org/wiki/UNIX_Fourth_Edition", "Unix Fourth Edition") }}. The first version with Unix kernel written in the C programming language. Ritchie and Thompson presented the first paper on Unix at the {{ L("https://en.wikipedia.org/wiki/Symposium_on_Operating_Systems_Principles", "Symposium on Operating System Principles (SOSP)") }}
+
+- Jun 1974 - {{ L("https://gunkies.org/wiki/UNIX_Fifth_Edition", "Unix Fifth Edition") }}. The manual mentions more than 50 installations. That year Thompson and Ritchie submitted paper {{ L("https://dl.acm.org/doi/10.1145/361011.361061", "The UNIX time-sharing system") }} to the {{ L("https://en.wikipedia.org/wiki/Communications_of_the_ACM", "Communications of the ACM (CACM)") }} journal. It caused requests for Unix to start coming in in piles. It was the first version to be distributed externally to a limited extent, and academic institutions could get source code with a license permitting educational use
+
+- May 1975 - {{ L("https://gunkies.org/wiki/UNIX_Sixth_Edition", "Unix Sixth Edition") }}. V6 was implemented in only 9073 lines of code, although without a full-screen text editor and a windowing system. It seemed like a mainframe OS on a minicomputer, and was highly influential: it became the first version of Unix ported to non-PDP, 32-bit computers, about 90% of all code was in C, John Lions used it for his {{ L("https://en.wikipedia.org/wiki/Lions%27_Commentary_on_UNIX_6th_Edition,_with_Source_Code", "commentary on the UNIX Operating System") }}, it was the basis of multiple forks including {{ L("https://en.wikipedia.org/wiki/Berkeley_Software_Distribution", "BSD") }}, it was used by ~100 universities, and it also had a commercial version called {{ L("https://en.wikipedia.org/wiki/PWB/UNIX", "PWB/UNIX") }}
+
+- Jan 1979 - {{ L("https://gunkies.org/wiki/Unix_Seventh_Edition", "Unix Seventh Edition") }}. This was the first "big" release of Unix after the system became multi-platform in 1977, grew much larger than V6, and attracted more interest from AT&T lawyers. {{ L("https://en.wikipedia.org/wiki/Stephen_C._Johnson", "Steve Johnson (Yaccman)") }} called it "the first portable Unix"; over time it was ported to countless varieties of hardware. Most 3rd party licensees from this period derived their Unix from V6 or V7. At the same time, it was the last highly-influential {{ L("https://en.wikipedia.org/wiki/Research_Unix", "Research Unix") }} release
+
+- Feb 1985 - {{ L("https://gunkies.org/wiki/Unix_Eighth_Edition", "Unix Eighth Edition") }}. AT&T based this version on {{ L("https://en.wikipedia.org/wiki/Berkeley_Software_Distribution", "BSD") }} to obtain a couple big features that its Unix kernels were missing, and to try regain control of the Unix market. Unix was originally spelled "UNIX", which changed to "Unix" by the time of {{ L("https://en.wikipedia.org/wiki/Version_8_Unix", "Version 8 Unix") }}
+
+- Sep 1986 - {{ L("https://gunkies.org/wiki/Unix_Ninth_Edition", "Unix Ninth Edition") }}
+
+- Oct 1989 - {{ L("https://gunkies.org/wiki/Unix_Tenth_Edition", "Unix Tenth Edition") }}. It was not distributed to external parties
+
+### Early Licensing and Distribution, from ~1970 to ~1980
+
+The history and evolution of Unix cannot be understood without an insight into its licensing.
+
+In 1949, the {{ L("https://en.wikipedia.org/wiki/United_States_Department_of_Justice", "US Department of Justice") }} filed suit against AT&T and its subsidiary {{ L("https://en.wikipedia.org/wiki/Western_Electric", "Western Electric") }}, claiming that companies were {{ L("https://en.wikipedia.org/wiki/Monopoly", "monopolies") }} acting "in restraint of trade".
+
+In 1956, by the mentioned antitrust {{ L("https://en.wikipedia.org/wiki/Consent_decree", "consent decree") }}, the companies were prohibited from branching into areas other than those used in providing telephone, telegraph, and common carrier communications services, and AT&T was also required to license 8,600 patents it held to interested parties without collecting royalties.
+
+As {{ L("https://en.wikipedia.org/wiki/Peter_H._Salus", "Peter H. Salus") }} wrote in his book {{ L("https://web.archive.org/web/20240701004249/http://www.groklaw.net/staticpages/index.php?page=20051013231901859", "The Daemon, the GNU & the Penguin") }}, "no one could have foreseen the problems that this consent decree would entail", referring to the far-reaching impact this decision had on Unix licensing 20 years later.
+
+In October 1973, Dennis Ritchie and Ken Thompson visited the new {{ L("https://en.wikipedia.org/wiki/Thomas_J._Watson_Research_Center", "IBM Research Center at Yorktown Heights in Hudson Valley") }} to deliver the mentioned first paper on Unix at the {{ L("https://en.wikipedia.org/wiki/Symposium_on_Operating_Systems_Principles", "Symposium on Operating System Principles (SOSP)") }}.
+The audience asked for copies of the new system, which raised a question -- was a computer operating system part of "common carrier communications services", and was AT&T required to distribute Unix?
+
+Since Unix wasn't related to communications services, the decision of corporate lawyers was that Bell Labs should distribute Unix to academic and research institutions for free, at the cost of media plus shipping, which was altogether set at {{ L("https://www.in2013dollars.com/us/inflation/1973?amount=150", "$150 in 1973's money") }}. The policy was “no advertising, no support, no bug fixes, and payment in advance”.
+
+Licensing was organized through Western Electric, and within a few months several dozen institutions requested Unix. (But note that, although the distribution included source code, it was not nearly {{ L("https://en.wikipedia.org/wiki/Free_software", "Free Software") }}. Unix was AT&T's {{ L("https://en.wikipedia.org/wiki/Trade_secret", "trade secret") }} and the license, among other things, did not grant the permission to redistribute Unix or its modified versions.)
+
+In 1974, unrelated to Unix, US DOJ filed another antitrust case against AT&T in {{ L("https://en.wikipedia.org/wiki/United_States_v._AT%26T", "United States v. AT&T") }}.
+
+In early 1974, Mel Ferentz and Lou Katz organized a meeting of Unix users in New York. The agenda was simple: reports of Unix installations and purposes; lunch; "Ken Thompson speaks!"; Unix hints; DEC hints; open discussion. There were 20 to 40 participants. Meetings kept being held twice yearly in a very informal fashion, facilitating sharing of software, bug reports, and bug fixes.
+
+In 1975, those meetings turned into a non-profit organization "UNIX Users Group". In 1977, the group changed name to {{ L("https://en.wikipedia.org/wiki/USENIX", "USENIX: The Advanced Computing Systems Association") }}, after a letter from a lawyer stating that AT&T had not granted the permission to use "UNIX" in "UNIX Users Group". In the same year and for the same reason, Ferentz' {{ L("https://www.usenix.org/system/files/login/articles/login_apr15_16_unix_news.pdf", "UNIX News") }} newsletter was renamed to {{ L("https://www.usenix.org/publications/loginonline", ";login:") }}. (The name came from a quirk and prompt displayed when Unix booted and was ready to accept user logins.)
+
+Unix was becoming popular and AT&T wanted to profit from it. But first they were not allowed to do so due to antitrust lawsuits, and later after 1982-1984 they didn't know how to do it successfully. As a result, the history of traditional Unix became inseparable from the effects that AT&T's increasingly strict, expensive, and conflicting licensing had on it from roughly 1977-1978 onwards.
+
+### Berkeley Software Distribution (BSD) Unix
+
+In 1973, {{ L("https://en.wikipedia.org/wiki/Bob_Fabry", "Bob Fabry") }} from the {{ L("https://en.wikipedia.org/wiki/University_of_California%2C_Berkeley", "University of California, Berkeley (UCB)") }} attended the mentioned Ritchie and Thompson's SOSP talk.
+
+In 1974, AT&T's Unix source code and license arrived to UCB.
+
+In 1975, Ken Thompson took a sabbatical from Bell Labs and came to Berkeley as a visiting professor. He helped install Version 6 Unix.
+In parallel, students doing operating systems research modified and extended Unix.
+
+Other universities became interested in software from Berkeley, and so in 1977-1978 {{ L("https://en.wikipedia.org/wiki/Bill_Joy", "Bill Joy") }}, a graduate student, started compiling the first
+{{ L("https://en.wikipedia.org/wiki/Berkeley_Software_Distribution", "Berkeley Software Distribution (BSD)") }}.
+
+In 1978, 1BSD was released as an addon for Version 6 Unix. About thirty copies were sent out.
+
+Later in 1978, 2BSD was released. Over 70 copies were sent out.
+
+That was being done with AT&T's approval, and because BSD contained copyrighted AT&T Unix source code, it was only available to organizations who already had the Unix source code license from AT&T.
+
+Thompson, Ritchie, and {{ L("https://en.wikipedia.org/wiki/Stephen_C._Johnson", "Steve Johnson") }} were unhappy with the treatment they were receiving from {{ L("https://en.wikipedia.org/wiki/Digital_Equipment_Corporation", "DEC") }}, and have refused DEC's offer to port Unix to {{ L("https://en.wikipedia.org/wiki/VAX", "DEC VAX") }} 32-bit machines. So DEC turned to another group inside Bell Labs, at Holmdel, where John F. Reiser and Tom London based their port on V7 Unix and called it {{ L("https://en.wikipedia.org/wiki/UNIX/32V", "Unix/32V") }}. Unix/32V did not have support for {{ L("https://en.wikipedia.org/wiki/Virtual_memory", "virtual memory (swap)") }} in VAX, but was widely used and got requested by about 6 universities. AT&T approved it to be sent to one -- the UCB.
+
+At the end of 1978, before the official release, Unix/32V arrived to UCB.
+
+In 1979, 3BSD was released, and since it was based on Unix/32V and many components were rewritten and improved for 32-bit, including adding the {{ L("https://en.wikipedia.org/wiki/Virtual_memory", "virtual memory (swap)") }} support, it became a complete system rather than an addon. The popularity of 3BSD also made other Berkeley extensions well-known, such as the {{ L("https://en.wikipedia.org/wiki/C_shell", "C shell") }}, {{ L("https://en.wikipedia.org/wiki/Curses_(programming_library)", "curses") }}, {{ L("https://en.wikipedia.org/wiki/Termcap", "termcap") }}, {{ L("https://en.wikipedia.org/wiki/Vi_(text_editor)", "vi") }}, and {{ L("https://en.wikipedia.org/wiki/Job_control_%28Unix%29", "job control") }}.
+
+In 1979-1980, {{ L("https://en.wikipedia.org/wiki/Darpa", "DARPA") }} was interested in an enhanced and supported version of the already-portable 3BSD for their use.
+Fabry made a proposal to DARPA and in some consultation with {{ L("https://en.wikipedia.org/wiki/Raytheon_BBN", "Bolt Beranek Newman (BBN)") }} (the developers of {{ L("https://en.wikipedia.org/wiki/ARPANET", "ARPANet") }}) won an 18-month contract.
+
+As part of the contract, the {{ L("https://en.wikipedia.org/wiki/Computer_Systems_Research_Group", "Computer Systems Research Group (CSRG)") }} at UCB was formed, and it continued working on BSD.
+
+A more complete history of BSD Unix can be read in the {{ L("https://en.wikipedia.org/wiki/History_of_the_Berkeley_Software_Distribution", "History of the Berkeley Software Distribution") }} or in the article {{ L("https://www.abortretry.fail/p/the-berkley-software-distribution", "The Berkeley Software Distribution") }}, but in summary, the following BSD releases could be mentioned as significant:
+
+For PDP-11:
+
+- 2.8.1BSD - the version of V7 Unix (initially slower than V6) that was improved by users and announced	at USENIX in 1982
+
+- 2.11BSD - the last BSD release for PDP-11, from 1991, still maintained with patches available on {{ L("https://www.tuhs.org/Archive/Distributions/UCB/2.11BSD/Patches/?C=M;O=D", "TUHS.ORG - 2.11BSD - Patches") }}
+
+For 32-bit DEC VAX and later computers:
+
+- 3BSD - derived from Unix/32V, with support for virtual memory (swap), from 1979
+
+- 4BSD - vastly improved 3BSD, from 1980, and de-facto standard Unix for VAX before AT&T's release of {{ L("https://en.wikipedia.org/wiki/Unix_System_III", "System III") }}. (Users would get a Unix/32V license from AT&T and then obtain 4BSD)
+
+- 4.1cBSD - version tuned for performance by {{ L("https://en.wikipedia.org/wiki/Bill_Joy", "Bill Joy") }}, from 1983. It ran some benchmarks as fast as the then-predominant OS for DEC VAX, the {{ L("https://en.wikipedia.org/wiki/OpenVMS", "DEC VMS") }}. 4.1cBSD became the basis for {{ L("https://en.wikipedia.org/wiki/Ultrix", "DEC Ultrix") }}, {{ L("https://en.wikipedia.org/wiki/SunOS", "SunOS") }}, and AT&T's {{ L("https://en.wikipedia.org/wiki/Version_8_Unix", "Version 8 Unix") }}
+
+- 4.2BSD - the first BSD released under the leadership of {{ L("https://en.wikipedia.org/wiki/Mike_Karels", "Mike Karels") }} and {{ L("https://en.wikipedia.org/wiki/Marshall_Kirk_McKusick", "Marshall Kirk McKusick") }}, from 1983, after {{ L("https://en.wikipedia.org/wiki/Bill_Joy", "Bill Joy") }} left in 1982 to co-found {{ L("https://en.wikipedia.org/wiki/Sun_Microsystems", "Sun Microsystems") }}. This should have been named 5BSD, but Berkeley kept it at 4.X to avoid discussing licensing with AT&T for a new major version. Users ended up having to be relicensed, though, due to code from AT&T's new release that was included
+
+- 4.4BSD-Lite - the first BSD release free of AT&T's intellectual property, from 1994
+
+- {{ L("https://en.wikipedia.org/wiki/SunOS", "SunOS") }} 4.1.4 - the last release of {{ L("https://en.wikipedia.org/wiki/Sun_Microsystems", "Sun Microsystems") }}' OS based on BSD, from 1994. (Later versions were based on {{ L("https://en.wikipedia.org/wiki/System_V_Release_4#SVR4", "AT&T System V Release 4 (SVR4)") }} and renamed {{ L("https://en.wikipedia.org/wiki/Solaris_(operating_system)", "Solaris") }})
+
+- {{ L("https://en.wikipedia.org/wiki/Berkeley_Software_Distribution#Standards", "4.4BSD-Lite2") }} - the second BSD release free of AT&T's intellectual property, from June 1995, and also the last one from UCB, because CSRG was disbanded shortly after
+
+### Unix and ARPANet (the Internet)
+
+By 1975, {{ L("https://en.wikipedia.org/wiki/ARPANET", "ARPANet") }} contained 60 nodes and was soon to become {{ L("https://en.wikipedia.org/wiki/Internet", "the Internet") }}. In May 1975, Steve Holmgren's {{ L("https://en.wikipedia.org/wiki/Request_for_Comments", "RFC") }} 681 "{{ L("https://www.rfc-editor.org/rfc/rfc681.txt", "Network UNIX") }}" appeared, stating:
+
+> The Unix time-sharing system presents several interesting capabilities as an ARPA network mini-host. It offers powerful local processing facilities in terms of user programs, several compilers, an editor based on Qed, a versatile document preparation system, and an efficient file system featuring sophisticated access control, mountable and de-mountable volumes, and a unified treatment of peripherals as special files.
+
+The result was that Internet started running on Unix. The protocols were also in tune with the {{ L("https://en.wikipedia.org/wiki/Unix_Philosophy", "Unix philosophy") }}. Anyone running Unix had accessible source code, and there were true communication and interoperability. Unix was used throughout the world -- Japan and Australia, most of Europe, and North America.
+
+The number of systems connected to ARPANet over the years grew as follows:
+
+- 1976: 63
+
+- 1981: >200
+
+- 1982: 235
+
+- 1983: 562
+
+- 1984: 1024
+
+- 1986: 2308
+
+- 1987: 28174
+
+- 1992: 727000
+
+### John Lions at UNSW, Australia
+
+In 1974-1975, professor {{ L("https://en.wikipedia.org/wiki/John_Lions", "John Lions") }} from the Australian {{ L("https://en.wikipedia.org/wiki/University_of_New_South_Wales", "University of New South Wales (UNSW)") }} became interested in Unix after reading Thompson and Ritchie's CACM paper, and his institution obtained Unix source code.
+
+Lions wanted to use Unix for teaching operating systems, but there were no textbooks. The existing Unix documentation did not discuss its internals or operating system design.
+
+In 1976, he wrote a {{ L("https://en.wikipedia.org/wiki/Lions%27_Commentary_on_UNIX_6th_Edition,_with_Source_Code", "A Commentary on the UNIX Operating System") }} for {{ L("https://en.wikipedia.org/wiki/Version_6_Unix", "Version 6 Unix") }} with source code included (9073 lines of code at the time). He received permission from AT&T to print out the code and commentary for instructional purposes.
+
+In March 1977, UNIX News announced the availability of the book to licensees, together with a note by Mel Ferentz: "Ken Thompson has seen the first version of the book and reports that it is a good job".
+
+The book became as popular as Unix itself. Lions shipped around 600 copies, including an order of 200 to Bell Labs.
+
+AT&T’s attention was drawn to the book. With Lions' agreement, in 1978 an announcement was made that further orders should be placed with Bell Laboratories. AT&T soon changed their mind and within the same year announced that books were no longer available.
+
+As a result, over the next two decades John Lions' book was shared privately and was half-jokingly said to have become the most copied book in computing history.
+
+The book was finally authorized and republished in 1996, containing 1975 (V6) Unix source code and a newer 1977 commentary, updated by 9 additional people.
+
+### Later Licensing, from ~1980 onwards
+
+There were a number of global factors contributing to the eventual change in Unix licensing:
+
+- As software became more complex, software production costs relative to hardware started increasing
+
+- In the United States vs. IBM antitrust suit, filed 17 January 1969, the U.S. government charged that software bundled with hardware was anticompetitive
+
+- Source code became copyrightable in the US in 1974. That, plus later court decisions such as {{ L("https://en.wikipedia.org/wiki/Apple_v._Franklin", "Apple v. Franklin") }} in 1983 for compiled (object) code, gave computer programs the copyright status of literary works. This started the closed-source software business model
+
+- In the '80s, computer vendors and software-only companies began routinely charging for software licenses, marketing software as "Program Products" and imposing legal restrictions through copyrights, trademarks, and leasing contracts
+
+- In 1983, IBM made a policy of no longer distributing source code with purchased software
+
+And there were changes at AT&T as well, oriented towards increasing profits from Unix:
+
+In 1979, AT&T announced {{ L("https://en.wikipedia.org/wiki/Version_7_Unix", "Version 7 Unix") }} at USENIX, and the new academic/research license no longer permitted distributing source code to students in classes, which applied retroactively if/when universities upgraded to Version 7.
+
+In 1981-1982, AT&T released {{ L("https://en.wikipedia.org/wiki/Unix_System_III", "System III") }}, a commercialized Version 7 Unix plus additions, with a more straightforward licensing model. Four types of licenses existed:
+
+1. "UNIX Academic / Educational Research Source License", the usual license for academic institutions, now with more restricted terms
+
+2. "UNIX System III Source License (Agreement)", for customers wishing to run and modify their local Unix installation
+
+3. "UNIX System III Object Code (Binary) License (Agreement)", for customers wishing to only run Unix in their environment
+
+4. "UNIX System III Object Code (Binary) Distribution License (Agreement)", for customers wishing to embed and/or resell binaries to their customers
+
+AT&T's binary distribution license included a fixed fee plus royalties per each copy sold. Unix vendors needed both the commercial source code license and a binary distribution license for their business model.
+For the time being, customers who did not accept the new terms could still obtain V7 Unix and source code license from {{ L("https://en.wikipedia.org/wiki/Western_Electric", "Western Electric") }}, and then with a valid license optionally also obtain a free BSD release with source code.
+
+In 1982 came the {{ L("https://en.wikipedia.org/wiki/Breakup_of_the_Bell_System", "break up of AT&T’s telecommunications monopoly") }}. Effective as of Jan 1, 1984, AT&T was free from the earlier 1956 and 1974 antitrust decrees, and was allowed to establish an unregulated division to sell computer hardware and software.
+
+In parallel, Unix was becoming widespread. By 1984 there were 1400 universities using Unix, 70 lines of computers designed around Unix, and well over 100k systems running Unix on a variety of hardware.
+
+AT&T discontinued the free distribution model and gradually increased costs. Educational source code licenses went from the initial $150 in the '70s to e.g. $800 for 1 CPU plus $400 per each additional CPU in 1983.
+Commercial source code licenses went from $20k in the '70s to $43+k in 1983 per CPU (+$16k per additional CPU), $100+k in 1989, and $160+k in 1993, and still included no support.
+
+### Unix Fragmentation
+
+Separately from the mainline {{ L("https://en.wikipedia.org/wiki/Research_Unix", "Research Unix") }} codebase, several groups within AT&T were maintaining their own forks of Unix. Those were primarily based on V5, V6, and V7 Unix, and included branches named {{ L("https://gunkies.org/wiki/USG_UNIX", "USG UNIX") }} (first released in 1973), {{ L("https://en.wikipedia.org/wiki/CB_UNIX", "CB UNIX") }} (1975), and {{ L("https://en.wikipedia.org/wiki/PWB/UNIX", "PWB/UNIX") }} (1977). There was also a real-time, {{ L("https://en.wikipedia.org/wiki/Microkernel", "microkernel") }}-based branch of Unix available that ran under AT&T's {{ L("https://en.wikipedia.org/wiki/Multi-Environment_Real-Time", "MERT") }} operating system (1977). This fragmentation was internal to AT&T.
+
+The early public fragmentation happened when AT&T's original Unix source diverged into two or three main branches:
+
+- {{ L("https://en.wikipedia.org/wiki/Berkeley_Software_Distribution", "Berkeley Software Distribution (BSD)") }}, based on V6 Unix and first released in 1978, with source code (still requiring a source code license from AT&T, as usual)
+
+- AT&T's {{ L("https://en.wikipedia.org/wiki/Unix_System_III", "System III") }}, a commercialized unification of V7 Unix, {{ L("https://gunkies.org/wiki/USG_UNIX", "USG UNIX") }}, {{ L("https://en.wikipedia.org/wiki/CB_UNIX", "CB UNIX") }}, {{ L("https://en.wikipedia.org/wiki/PWB/UNIX", "PWB/UNIX") }}, and other additions, first released in 1981, with surcharge for source code
+
+- AT&T's {{ L("https://en.wikipedia.org/wiki/Unix_System_V", "System V") }}, a successor to System III, intended to further standardize and unify Unix, CB UNIX, and BSD, first released in 1983, with surcharge for source code
+
+But, as mentioned, AT&T was also licensing Unix to outside parties. Licensees included universities such the mentioned University of California at Berkeley, Unix porting companies {{ L("https://en.wikipedia.org/wiki/UniSoft", "UniSoft") }} and {{ L("https://en.wikipedia.org/wiki/Santa_Cruz_Operation", "Santa Cruz Operation (SCO)") }}, hardware vendors {{ L("https://en.wikipedia.org/wiki/Sun_Microsystems", "Sun Microsystems (Sun)") }}, {{ L("https://en.wikipedia.org/wiki/IBM", "IBM") }}, {{ L("https://en.wikipedia.org/wiki/Hewlett-Packard", "Hewlett Packard (HP)") }}, {{ L("https://en.wikipedia.org/wiki/Digital_Equipment_Corporation", "Digital Equipment Corporation (DEC)") }}, {{ L("https://en.wikipedia.org/wiki/Silicon_Graphics", "Silicon Graphics (SGI)") }}, {{ L("https://en.wikipedia.org/wiki/Dell", "Dell") }}, and countless others.
+
+Licensees created their own variants of Unix by basing them on either BSD or one of AT&T's systems and adding proprietary extensions. Because the underlying licensor was always AT&T, these variants predominantly sold to end customers without source code because AT&T's binary-only licenses were significantly cheaper.
+
+As a result, Unix, originally a single product with available source code, became divided into a number of separate, competing, closed-source, and incompatible offerings, all claiming superiority and planning to take over the market.
+
+<!--
+The split also included the user bases to an extent:
+
+- BSD-based Unixes came from an educational environment and have attracted programmers and students, and younger workforce in the engineering, scientific, and technical roles
+
+- AT&T-based Unixes were commercial offerings and have attracted more corporate-oriented users
+-->
+
+### Unix Wars
+
+As mentioned, AT&T was unsure how to best profit from Unix. In 1973 they established {{ L("https://gunkies.org/wiki/UNIX_Support_Group", "Unix Support Group (USG)") }} to provide service to AT&T departments that demanded support, which over time grew into a commercial offering. After 1982, when it was ruled that AT&T will be freed from the antitrust lawsuits and allowed to operate a computer business effective Jan 1, 1984, they tried to commercialize Unix through successive efforts {{ L("https://en.wikipedia.org/wiki/UNIX_System_V#SVR2", "Unix System Development Laboratory (USDL)") }} (1983), {{ L("https://en.wikipedia.org/wiki/AT%26T_Information_Systems", "AT&T Information Systems (ATTIS)") }} (1984), and finally {{ L("https://en.wikipedia.org/wiki/Unix_System_Laboratories", "Unix System Laboratories (USL)") }} (1989).
+
+AT&T hoped the increasing source license costs would eventually cause BSD users to switch to a binary, AT&T-based release.
+By 1983-1984 AT&T incorporated more BSD features in its System V and in 1985 even based their V8 Research Unix on BSD, obtaining missing features such as the
+{{ L("https://en.wikipedia.org/wiki/Berkeley_sockets", "Berkeley sockets") }}, {{ L("https://en.wikipedia.org/wiki/Berkeley_Fast_File_System", "Berkeley Fast File System (FFS)") }},
+and {{ L("https://en.wikipedia.org/wiki/Virtual_memory", "virtual memory (swap)") }} support for {{ L("https://en.wikipedia.org/wiki/VAX", "DEC VAX") }}.
+
+Starting with 1984, further distancing between Unix vendors and grouping into competing camps happened when:
+
+- In 1984, {{ L("https://en.wikipedia.org/wiki/AT%26T_Computer_Systems", "AT&T Computer Systems (AT&T-CS)") }} division inherited {{ L("https://en.wikipedia.org/wiki/UNIX_System_V", "Unix System V") }} and positioned itself as a direct commercial competitor to existing Unix vendors
+
+- In 1985, AT&T-CS issued its {{ L("https://en.wikipedia.org/wiki/System_V_Interface_Definition", "System V Interface Definition (SVID)") }}, requiring vendors calling their products "System V" to conform to it
+
+- In 1986, as AT&T's computer divisions were generating losses, AT&T announced it would lay off 24k employees, mostly in ATTIS
+
+- In 1987, European Unix vendors {{ L("https://en.wikipedia.org/wiki/Groupe_Bull", "Bull") }}, ICL, {{ L("https://en.wikipedia.org/wiki/Olivetti", "Olivetti") }}, Siemens, and Nixdorf created {{ L("https://en.wikipedia.org/wiki/X/Open", "X/Open") }} group to promote open standards and define a single specification for all operating systems derived from Unix
+
+- In 1988, AT&T announced a 3-year plan to acquire {{ L("https://www.latimes.com/archives/la-xpm-1988-01-07-fi-33970-story.html", "up to 20% stake and a seat on the Board of Sun Microsystems") }}, "one of Silicon Valley’s most promising computer makers", to establish an "open technical standard"
+
+- In 1988, {{ L("https://en.wikipedia.org/wiki/Institute_of_Electrical_and_Electronics_Engineers", "IEEE Institute") }} published a separate, vendor-neutral {{ L("https://en.wikipedia.org/wiki/POSIX", "Portable Operating System Interface (POSIX)") }} standard for software compatibility between variants of operating systems. It was a compromise between System V and BSD, and to some extent a subset of SVID
+
+- In 1988, AT&T and Sun Microsystems (who was until then a BSD-based vendor) released their Unix {{ L("https://en.wikipedia.org/wiki/System_V_Release_4", "System V Release 4") }}, unifying {{ L("https://en.wikipedia.org/wiki/System_V_Release_3#SVR3", "System V Release 3") }}, {{ L("https://en.wikipedia.org/wiki/Xenix", "Xenix") }}, BSD, and {{ L("https://en.wikipedia.org/wiki/Sunos", "SunOS") }} features
+
+- In 1988, AT&T and Sun Microsystems released their {{ L("https://en.wikipedia.org/wiki/OPEN_LOOK", "Open Look") }} GUI
+
+- In 1988, a group of 7 vendors DEC, {{ L("https://en.wikipedia.org/wiki/Apollo_Computer", "Apollo") }}, {{ L("https://en.wikipedia.org/wiki/Groupe_Bull", "Bull") }}, HP, IBM, Siemens, and Nixdorf, collectively called the Hamilton Group, created {{ L("https://en.wikipedia.org/wiki/Open_Software_Foundation", "Open Software Foundation (OSF)") }} to protect themselves from the cooperation between AT&T and Sun Microsystems, combine code from their own {{ L("https://en.wikipedia.org/wiki/System_V_Release_3#SVR3", "System V Release 3") }} derivatives, and ultimately produce a Unix OS free of AT&T's intellectual property. "OSF" was humorously said to also stand for "Oppose Sun Forever"
+
+- In 1988, AT&T and Sun Microsystems formalized their association as {{ L("https://en.wikipedia.org/wiki/Unix_International", "Unix International (UI)") }}, to counter the establishment of OSF
+
+- In 1989, OSF released their {{ L("https://en.wikipedia.org/wiki/Motif_(software)", "Motif") }} GUI
+
+- In 1989, AT&T, separately from its research Unix group at {{ L("https://en.wikipedia.org/wiki/Murray_Hill,_New_Jersey", "Murray Hill") }}, and in cooperation with its Unix International and {{ L("https://en.wikipedia.org/wiki/Novell", "Novell") }}, created {{ L("https://en.wikipedia.org/wiki/Unix_System_Laboratories", "Unix System Laboratories (USL)") }} to once again try making its Unix business more profitable. AT&T transferred all its US-based Unix assets to USL, including the System V copyright and Unix trademark. Sun bought a stake in USL
+
+- In 1989, due to an industry-wide recession and diminishing mainframe and minicomputer sales, most Unix vendors were in financial trouble. HP bought {{ L("https://en.wikipedia.org/wiki/Apollo_Computer", "Apollo Computer") }}
+
+- In 1990, OSF released their first reference Unix implementation, {{ L("https://en.wikipedia.org/wiki/OSF/1", "OSF/1") }}
+
+- In 1991, partly prompted by the recession, but also as a sort of giving up, and possibly even based on predicting the downfall of the Unix server and workstation market, {{ L("https://www.latimes.com/archives/la-xpm-1991-06-04-fi-223-story.html", "AT&T sold its stake in Sun Microsystems") }} as well as USL, "ending one of the most financially rewarding and technology-advancing relationships in the computer industry [with Sun]"
+
+- In 1992, OSF gave up on the effort of producing their own Unix OS
+
+Due to divergence, intellectual property, licensing issues, personal and corporate conflicts, commercial rivalry, and inability to agree
+on a Unix standard, the period from ~1985 to ~1995 became collectively known as the period of {{ L("https://en.wikipedia.org/wiki/Unix_wars", "Unix wars") }}.
+
+### Outcomes of Unix Wars
+
+Most of the efforts created during Unix wars ultimately had influential and valuable outcomes:
+
+**POSIX** was in 1988 included in {{ L("https://en.wikipedia.org/wiki/National_Institute_of_Standards_and_Technology", "NIST") }} {{ L("https://nvlpubs.nist.gov/nistpubs/Legacy/FIPS/fipspub151.pdf", "FIPS 151") }}, requiring {{ L("https://en.wikipedia.org/wiki/POSIX", "POSIX") }} compliance for all Unixes utilized in the US government, making POSIX an industry standard relevant to this day.
+
+**X/Open** was expanded by 1990 to include AT&T, DEC, HP, Sun, Unisys, NCR, Philips, Nokia, Prime, Apollo, Fujitsu, Hitachi, and NEC, and also both OSF and Unix International.
+In 1994 X/Open managed to publish the {{ L("https://en.wikipedia.org/wiki/Single_Unix_Specification", "Single Unix Specification (SUS)") }}, which in its core included the {{ L("https://en.wikipedia.org/wiki/POSIX", "POSIX") }} standard. X/Open was merged with OSF in 1996 to form {{ L("https://en.wikipedia.org/wiki/The_Open_Group", "The Open Group") }}.
+
+**Open Software Foundation (OSF)**'s OSF/1 operating system was released in 1990 for various platforms, demonstrating portability and vendor neutrality. Components included the {{ L("https://en.wikipedia.org/wiki/Mach_(kernel)", "CMU Mach 2.5 microkernel") }}, IBM journal filesystem, {{ L("https://en.wikipedia.org/wiki/Net/1", "BSD networking code Net/1") }}, native virtual memory management, {{ L("https://en.wikipedia.org/wiki/Motif_(software)", "Motif") }}, and {{ L("https://en.wikipedia.org/wiki/Distributed_Computing_Environment", "Distributed Computing Environment (DCE)") }}. Other software vendors also licensed OSF/1, including Apple. Parts of OSF/1 are contained in so many versions of Unix that it may have been the most widely deployed Unix product.
+
+**Unix International (UI)**, in cooperation with OSF, announced in 1993 the {{ L("https://en.wikipedia.org/wiki/Common_Open_Software_Environment", "Common Open Software Environment (COSE)") }} initiative. Apart from the standardization effort, COSE's most notable product released in the same year was the industry-standard {{ L("https://en.wikipedia.org/wiki/Common_Desktop_Environment", "Common Desktop Environment (CDE)") }}, based on the {{ L("https://en.wikipedia.org/wiki/Motif_(software)", "Motif") }} toolkit. UI and COSE were merged in 1994 into OSF, and then under OSF in 1996 into the mentioned Open Group.
+
+**OSF/Motif** was adopted in 1994 as a {{ L("https://diswww.mit.edu/menelaus.mit.edu/osf-news/9", "formal IEEE standard") }} for GUIs. OSF/Motif and CDE were merged into a single project, CDE/Motif, in 1995.
+
+**Unix System Laboratories (USL)** and all its Unix assets were in 1992 bought by {{ L("https://en.wikipedia.org/wiki/Novell", "Novell") }}, who was already USL's co-founder and wanted to incorporate Unix into its {{ L("https://en.wikipedia.org/wiki/NetWare", "NetWare network OS") }}. The purchase led to somewhat imprecise headlines that "Novell bought Unix", but the acquisition never really paid off and in 1995 Novell resold some Unix assets to {{ L("https://en.wikipedia.org/wiki/Santa_Cruz_Operation", "Santa Cruz Operation (SCO)") }}, a vendor selling Unix variants for Intel x86 processors. Both USL and SCO indulged in lawsuits, to the detriment of Unix.
+
+### Culmination of Unix Wars
+
+But the last big event and a culmination of Unix wars was {{ L("https://en.wikipedia.org/wiki/Unix_System_Laboratories,_Inc._v._Berkeley_Software_Design,_Inc.", "USL v. BSDi") }}, a 1992 lawsuit filed by AT&T's {{ L("https://en.wikipedia.org/wiki/Unix_System_Laboratories", "Unix System Laboratories (USL)") }} against {{ L("https://en.wikipedia.org/wiki/Berkeley_Software_Design", "Berkeley Software Design, Inc. (BSDi)") }}.
+
+BSDi was a privately-owned company, established in 1991 by some members of the original {{ L("https://en.wikipedia.org/wiki/Computer_Systems_Research_Group", "CSRG") }} group at Berkeley and others, including for example {{ L("https://en.wikipedia.org/wiki/Rick_Adams_(Internet_pioneer)", "Rick Adams") }}, the founder of {{ L("https://en.wikipedia.org/wiki/UUNET", "UUNET") }} (at one point the world's largest {{ L("https://en.wikipedia.org/wiki/Internet_service_provider", "Internet Service Provider (ISP)") }}).
+
+The events leading to the lawsuit were as follows:
+
+As mentioned, CSRG at Berkeley was distributing BSD since 1978, with AT&T's approval, to interested parties who themselves had a valid Unix source code license from AT&T.
+
+Ten years later, in 1988, since even AT&T's single-CPU source code licenses had become prohibitively expensive ($100+k) and Internet was growing, people expressed interest in obtaining networking code that would be developed outside of AT&T and not subject to AT&T's licensing.
+
+CSRG audited the source code of their BSD TCP/IP stack and in 1989 released it to the general public as "{{ L("https://en.wikipedia.org/wiki/Net/1", "Net/1") }}", under a free and permissive {{ L("https://en.wikipedia.org/wiki/BSD_licenses", "BSD license") }}.
+
+In 1991, after plans were announced to close CSRG, and following continuous {{ L("https://en.wikipedia.org/wiki/Keith_Bostic_(software_engineer)", "Keith Bostic") }}'s initiative that started in 1986, CSRG made the final effort to remove all remaining AT&T code in BSD and replace it with their own, alternative implementation.
+In June 1991, they made another public release under the BSD license, {{ L("https://en.wikipedia.org/wiki/Net/2#Net/2_and_legal_troubles", "Net/2") }}. Net/2 was a nearly complete Unix-like system; it was only missing the implementation of 6 original kernel source files which instead contained empty function templates, and CSRG believed it not to contain any AT&T's intellectual property.
+
+Berkeley Software Design, Inc. (BSDi) obtained the source of Net/2, performed a {{ L("https://en.wikipedia.org/wiki/Clean_room_design", "clean room implementation") }} of the missing functions, and ported it to the Intel i386 computer architecture. By the end of 1991, BSDi started selling the resulting {{ L("https://en.wikipedia.org/wiki/BSD/OS", "BSD/386") }} operating system using a memorable telephone number "1-800-ITS-UNIX" and had ~300 customers. That usurped {{ L("https://en.wikipedia.org/wiki/Unix_System_Laboratories", "USL") }}, who did not agree with the telephone number containing "UNIX" nor believed that BSDi's BSD/386 was free of USL's {{ L("https://en.wikipedia.org/wiki/Trade_secret", "trade secret") }}s.
+
+(USL chose to dispute trade secrets rather than copyright because multiple authors were working on the code, code was sometimes developed jointly, and sometimes as derivative work which is not subject to original copyright. Trade secrets offered a broader legal ground -- they remain protected even if shared under a license (as long as they are not publicly disclosed), they were a good fit for what USL believed was misappropriated (the know-how, structure, design, etc.), and ultimately they should have helped to more easily get BSDi to stop distributing its software.)
+
+USL filed a lawsuit against BSDi in April 1992, requesting sales of BSD/386 to stop until the case was resolved. BSDi countered, stating that only 6 out of ~18,000 files could be disputed, because the rest were already freely redistributable by UCB. Feeling that their case was weakened, USL refiled, this time including the University in it and requesting sales and distribution of both BSD/386 and Net/2 to stop.
+
+In April 1993, as the judge did not grant the {{ L("https://en.wikipedia.org/wiki/Injunction#Preliminary_injunctions", "preliminary injunction") }} against BSDi, BSDi continued selling BSD/386 at $595 for binary and $995 for source releases. They advertised a "99% discount" compared to AT&T's Unix System V.
+
+Later in 1993, the University filed a countersuit against USL, claiming that USL had failed to credit the University for the use of BSD code in System V as required by the {{ L("https://www.crystallabs.io/software-licensing/#4-clause-bsd-bsd-original-bsd-old-bsd", "4-clause BSD license") }}. The University demanded that USL be forced to reprint all their documentation with the appropriate credit added, notify all their licensees of oversight, and run full-page advertisements in major publications, such as The Wall Street Journal and Fortune magazine, informing the public of their omission.
+
+Soon after the countersuit, USL was purchased by {{ L("https://en.wikipedia.org/wiki/Novell", "Novell") }}.
+
+In 1994, after the judge expressed doubt in the validity of USL's trade secrets, and with Novell's Unix-friendly CEO {{ L("https://en.wikipedia.org/wiki/Ray_Noorda", "Ray Noorda") }} favoring a settlement, the case was settled out of court, with Novell and UCB agreeing not to litigate further over either BSD or users or distributors of future releases. Interestingly, {{ L("https://www.nokia.com/bell-labs/about/dennis-m-ritchie/bsdi/USLsettlement.pdf", "the full text of the USL-UCB settlement") }} remained secret until 2004, but can now be found along with other documents in {{ L("https://www.nokia.com/bell-labs/about/dennis-m-ritchie/bsdi/bsdisuit.html", "Dennis Ritchie's archive of USL vs. BSDi") }}.
+
+As part of the settlement, of 18,000 files included in BSD, 3 had to be removed, and 70 modified to show the USL copyright notice. The first subsequent and free BSD release was {{ L("https://en.wikipedia.org/wiki/4.4BSD", "4.4BSD-Lite") }}, released in March 1994.
+
+By 1995, {{ L("https://en.wikipedia.org/wiki/BSD/OS", "BSD/386") }} became the main Internet and datacenter OS. By the end of 2003, due to competition from open source BSDs and GNU/Linux, BSD/386 (in the meantime renamed BSD/OS) was discontinued.
+
+### A Summary of Mistakes
+
+Starting with 1990 onwards, almost all traditional Unix vendors have died out, either directly or have been bought and diluted in companies with no Unix heritage.
+
+But their demise did not come overnight, as a mishap. It was a result of stubborn and insistently wrong decision making that was going on for a decade or more.
+
+As mentioned earlier, most of the efforts created during Unix wars ultimately had influential and valuable outcomes. It is unfortunate that involved parties did not reconcile or start cooperating 5 to 10 years earlier.
+
+But there were other problems:
+
+Unix vendors were 5 to 10 years late in providing Unix on hardware that was, price-wise, accessible to the general public. Arguably they never provided this option, turning Unix into a niche.
+
+{{ L("https://en.wikipedia.org/wiki/X_Window_System", "X Window System") }}, the standard graphical windowing system for Unix, saw little joint development after the 1989 release of X11R4. Unix vendors were more interested in adding proprietary extensions than contributing back to the common code base released under the free and permissive {{ L("https://en.wikipedia.org/wiki/MIT_License", "MIT license") }}.
+
+Unix vendors were 5 to 10 years late in reacting to an obvious industry trend -- the emergence of feeble {{ L("https://en.wikipedia.org/wiki/Microcomputer", "microcomputers") }} and {{ L("https://en.wikipedia.org/wiki/Personal_computer", "PCs") }}, whose popularity and agility far surpassed Unix vendors', made their business models obsolete, and eventually starved them of income and influence needed to respond.
+
+There were people who understood the direction of the market. For example, {{ L("https://en.wikipedia.org/wiki/Larry_McVoy", "Larry McVoy") }} and others warned Sun Microsystems in a 1993 letter titled {{ L("https://www.landley.net/history/mirror/unix/srcos.html", "The Sourceware Operating System Proposal") }}, but it did not have much effect. Besides, even that letter was authored 8 years after the 1985 release of {{ L("https://en.wikipedia.org/wiki/80386", "i386 CPU") }}, the first PC CPU reasonable enough to run Unix.
+
+(Sun Microsystems did eventually try to open source Solaris in 2008 under the name {{ L("https://en.wikipedia.org/wiki/OpenSolaris", "OpenSolaris") }}, but without drivers for the diverse PC hardware and after Solaris had already switched to using the {{ L("https://en.wikipedia.org/wiki/GNOME", "GNOME") }} desktop. This effort was 10 to 15 years late to begin with, and was discontinued only two years later, immediately after the {{ L("https://en.wikipedia.org/wiki/Sun_acquisition_by_Oracle", "acquisition of Sun Microsystems by Oracle Corporation") }}.)
+
+Another big, missed opportunity in the '90s and 2000s was related to graphical components {{ L("https://en.wikipedia.org/wiki/Motif_(software)", "Motif") }} and {{ L("https://en.wikipedia.org/wiki/Common_Desktop_Environment", "Common Desktop Environment (CDE)") }}. Motif and CDE had universal support and were arguably, alongside Unix itself, its flagship components. Since much of the early software running on GNU/Linux was ported from Unix, lack of Motif and CDE were significant showstoppers in porting GUI applications and having an industry-standard desktop quickly.
+That did not only slow down the adoption of GNU/Linux, but it also deprived the shrinking Unix and Motif/CDE user groups of a completely new, massive market and community of users and contributors.
+
+The lack of Motif was particularly frustrating. A free software project called {{ L("https://en.wikipedia.org/wiki/LessTif", "LessTif") }} tried to implement a replacement, but never quite succeeded. Motif and CDE were eventually released as free software, but only in 2012, after they have already lost all relevance and acquired so much of an outdated look and hatred for not being available that people have buried them together with the dinosaurs. Their release as free software was 10 to 20 years late.
+
+Significant for the fate of traditional Unix was also the {{ L("https://en.wikipedia.org/wiki/Unix_System_Laboratories,_Inc._v._Berkeley_Software_Design,_Inc.", "USL v. BSDi lawsuit") }}. It delayed BSD from 1992 to 1994, the years important for entering the general PC market, and it also once again undesirably brought Unix licensing into the spotlight.
+
+Given the heavy burden of practically everything related to old-school Unix -- hardware, software, incompatibility, pricing, licensing, politics, elitism, and closed source -- it is maybe exactly just that all those variants are now relics of the past.
+
+But, as a concept, Unix has defined all computing that we know to this day and continues to thrive free and receive enhancements like never before under the umbrellas of GNU/Linux and BSD.
+
+## After Unix
+
+### Plan9 and Inferno
+
+After the 10th edition Unix in 1989, Bell Labs went back to doing more fundamental operating systems research.
+
+In 1992 and 1996 they produced two more operating systems, {{ L("https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs", "Plan 9") }} and {{ L("https://en.wikipedia.org/wiki/Inferno_(operating_system)", "Inferno") }}.
+
+{{ L("https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs", "Plan 9") }} developed Unix ideals further. Source code became compilable on all supported architectures, "{{ L("https://en.wikipedia.org/wiki/Everything_is_a_file", "everything is a file") }}" became true, userspace file servers and per-process namespaces were added, and the lack of location-agnostic kernel APIs (which resulted in the creation of separate {{ L("https://en.wikipedia.org/wiki/Berkeley_sockets", "Berkeley sockets") }} API, {{ L("https://en.wikipedia.org/wiki/Ptrace", "ptrace") }}, and other syscalls in Unix) was fixed.
+
+In summary, {{ L("https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs", "Plan 9") }} implemented {{ L("https://en.wikipedia.org/wiki/Distributed_computing", "distributed computing") }} -- the sharing of CPUs, filesystems, and devices across computers and architectures as if they were local. This was enabled by processing happening transparently on nodes that owned the data and devices they were exporting.
+
+{{ L("https://en.wikipedia.org/wiki/Inferno_(operating_system)", "Inferno") }}'s focus was on bringing ideas from Plan 9 to a wider range of users and devices, including web browsers, with cross-platform execution based on the {{ L("https://en.wikipedia.org/wiki/Dis_virtual_machine", "Dis virtual machine (VM)") }}. Inferno could have been a platform competing with {{ L("https://en.wikipedia.org/wiki/Java_(programming_language)", "Java") }}, but its model depended on the Dis VM, the Inferno OS, and the {{ L("https://en.wikipedia.org/wiki/Limbo_(programming_language)", "Limbo programming language") }}.
+
+Plan 9 and Inferno never gained traction and were even formally discontinued in 2015. Apart from early licensing issues, there was no Unix compatibility, the development environment was strange, and the industry did not want to go back 15 to 20 years in time; Unix was already there, it was good enough, and could gradually receive improvements.
+
+But many of their concepts propagated back to Unix and general computing, including the {{ L("https://en.wikipedia.org/wiki/Procfs", "proc filesystem") }}, {{ L("https://en.wikipedia.org/wiki/Fork_(system_call)#Rfork", "clone/rfork syscall") }}, {{ L("https://en.wikipedia.org/wiki/Utf-8", "UTF-8") }}, {{ L("https://en.wikipedia.org/wiki/Linux_namespaces", "namespaces") }}, {{ L("https://en.wikipedia.org/wiki/Compositing_window_manager", "compositing") }}, {{ L("https://en.wikipedia.org/wiki/RandR#Other_DDX_components", "xrandr") }}, and the {{ L("https://en.wikipedia.org/wiki/9P_(protocol)", "9P protocol") }}. A project named {{ L("https://9fans.github.io/plan9port/", "Plan 9 from User Space") }} maintains ports of other, less-known Plan 9 ideas and programs for Unix.
+
+The {{ L("https://plan9foundation.org/", "Plan 9 Foundation") }} was established in late 2020, covering Plan 9 and Inferno, and organizing the yearly {{ L("https://iwp9.org/", "International Workshop on Plan 9") }}. In 2021, Plan 9 and Inferno source code were released under the {{ L("https://en.wikipedia.org/wiki/MIT_License", "MIT license") }}.
+
+Plan 9 has an actively developed fork for skilled hobbyists called {{ L("https://9front.org/", "9front") }}.
+There are a couple YouTube channels available, such as Andrew Gibson's {{ L("https://www.youtube.com/@adventuresin9", "@adventuresin9") }}.
+The {{ L("https://fqa.9front.org/fqa0.html", "first section of 9front's FQA") }} contains a very useful and informative overview, including
+an answer to why random users might want to use 9front: "It is very likely that they don't". 
+
+### GNU - GNU's Not Unix
+
+In 1971, {{ L("https://en.wikipedia.org/wiki/Richard_Stallman", "Richard Stallman") }}, a freshman at Harvard, began working for Russell Noftsker at the {{ L("https://en.wikipedia.org/wiki/MIT_AI_Lab", "MIT Artificial Intelligence Lab") }}. His job was to develop and improve the {{ L("https://en.wikipedia.org/wiki/Incompatible_Timesharing_System", "ITS") }} operating system used by the Lab.
+
+Work and research at the Lab were originally being done in the same technical, social, and ethical hacker culture that was present in computing since its beginnings in the 1950s, but as the '80s were approaching Stallman noticed concerning trends:
+
+In 1980, Noftsker and his group that separated from MIT formed {{ L("https://en.wikipedia.org/wiki/Symbolics_Inc.", "Symbolics Inc.") }} to design and manufacture {{ L("https://en.wikipedia.org/wiki/Lisp_machine", "Lisp machines") }}, single-user computers optimized for running the programming language {{ L("https://en.wikipedia.org/wiki/Lisp_(programming_language)", "Lisp") }}. Symbolics hired 14 MIT AI Lab staff, no longer visited there, and did not share the code of their first edition in 1982.
+Stallman made a different, parallel implementation to prevent the company from gaining a monopoly, and shared the work with others in the continued "spirit of scientific collaboration and openness".
+
+Also in 1982, the AI Lab bought a new {{ L("https://en.wikipedia.org/wiki/PDP-10", "PDP-10") }} and its administrators decided to use Digital's non-free timesharing system {{ L("https://en.wikipedia.org/wiki/Tops-20", "TOPS-20") }} instead of {{ L("https://en.wikipedia.org/wiki/Incompatible_Timesharing_System", "ITS") }}. The new OS required signing a nondisclosure agreement even for binaries, which made any kind of sharing or collaborative improvements impossible.
+
+Finally, Stallman had previously modified the Lab's printer driver to notify owners of active print jobs when paper was jammed. When Xerox donated a high-speed laser printer to the Lab and the same modification was necessary, Stallman surprisingly found no driver source code available, and a person that had it refused to share it due to a {{ L("https://en.wikipedia.org/wiki/Non-disclosure_agreement", "non-disclosure agreement (NDA)") }}.
+
+Stallman was in total opposition of non-disclosure agreements, new licensing terms, increasing incompatibilities between vendors, lack of source code, and loss of user freedoms.
+To him, "the idea of proprietary software was antisocial, unethical, and simply wrong, dividing the public and keeping users helpless".
+
+To overturn the situation, Stallman made a definite decision to create a Unix-like system, but replace all components of Unix with {{ L("https://en.wikipedia.org/wiki/Free_software", "Free Software") }} ("Free" as in freedom).
+
+Free Software refers to software that users have the freedom to run in any environment and for any purpose, as well as to study, share, and modify it, and distribute their modified versions.
+Computer programs are deemed "free" if they give end users complete control over their software and, subsequently, over their devices.
+
+In 1983, {{ L("https://www.gnu.org/gnu/initial-announcement.html", "Stallman announced the GNU project") }} on "net.unix-wizards" and "net.usoft" {{ L("https://en.wikipedia.org/wiki/Usenet", "Usenet") }} newsgroups. The name "GNU" was chosen as an acronym for "GNU's Not Unix".
+
+In 1984, he resigned from MIT, so that MIT could not claim copyright over his work on {{ L("https://en.wikipedia.org/wiki/GNU", "GNU software") }}. But thanks to {{ L("https://en.wikipedia.org/wiki/Patrick_Winston", "Patrick Henry Winston") }}, the director of the MIT AI Lab from 1972 to 1997, Stallman continued to have access to office, lab space, and computing facilities.
+
+In January 1984, software development for the GNU operating system began. In 1984 and 1985, GNU Emacs text editor started being usable and was available for download on Stallman's computer *prep.ai.mit.edu* via FTP.
+People who were not on the Internet could order a physical tape from Stallman for a fee of $150. That became a free software distribution business and a precursor to companies that today distribute entire GNU/Linux-based systems.
+
+By mid-1984, GNU already had an impressive collection of software.
+
+In October 1985, the {{ L("https://en.wikipedia.org/wiki/Free_Software_Foundation", "Free Software Foundation (FSF)") }} was founded to support the {{ L("https://en.wikipedia.org/wiki/Free_software_movement", "free software movement") }}, employ software developers to write free software for the GNU Project, and work on the legal and structural elements of free software.
+
+In March 1985, the {{ L("https://en.wikipedia.org/wiki/GNU_manifesto", "GNU Manifesto") }} call-to-action was popularized after publishing in {{ L("https://en.wikipedia.org/wiki/Dr._Dobb's_Journal", "Dr. Dobb's Journal of Software Tools") }}. Its text is available in {{ L("https://www.gnu.org/gnu/manifesto.html", "the GNU Manifesto") }}.
+
+In February 1986, the {{ L("https://en.wikipedia.org/wiki/The_Free_Software_Definition", "Free Software Definition") }} was published. Its text is available in {{ L("https://www.gnu.org/philosophy/free-sw.html", "What is Free Software?") }}.
+
+In February 1989, the {{ L("https://en.wikipedia.org/wiki/GNU_General_Public_License", "GNU General Public License (GPL)") }} was published. Its text is available in {{ L("https://www.gnu.org/licenses/gpl-3.0.html", "GNU General Public License") }}.
+
+Starting with {{ L("https://en.wikipedia.org/wiki/GNU_Emacs", "GNU Emacs") }} and {{ L("https://en.wikipedia.org/wiki/GNU_Compiler_Collection", "GNU Compiler Collection (GCC)") }}, by the early 1990s numerous GNU programs became de-facto standard and, thanks to their quality, free license, unhindered development, and better portability and support, quickly replaced their obsolete Unix counterparts.
+
+### Linux
+
+{{ L("https://en.wikipedia.org/wiki/Linux_kernel", "Linux") }} is a free and open source, Unix-like {{ L("https://en.wikipedia.org/wiki/Kernel_(operating_system)", "kernel") }} that was created in 1991 by {{ L("https://en.wikipedia.org/wiki/Linus_Torvalds", "Linus Torvalds") }}, a then 21-year-old computer science student at the University of Helsinki.
+
+At the time of the first Linux release in 1991, the circumstances were as follows:
+
+- In 1983, Stallman created {{ L("https://en.wikipedia.org/wiki/GNU_Project", "the GNU Project") }}. GNU had produced almost everything needed for a complete operating system, but the intended kernel {{ L("https://en.wikipedia.org/wiki/GNU_Hurd", "GNU Hurd") }} wasn't ready
+
+- In 1985, Intel released 80386, the first x86 CPU that had a 32-bit instruction set and a {{ L("https://en.wikipedia.org/wiki/Memory_management_unit", "memory management unit (MMU)") }} with {{ L("https://en.wikipedia.org/wiki/Paging", "paging") }}
+
+- In 1986, Maurice J. Bach of AT&T released {{ L("https://github.com/jyfc/ebook/blob/master/03_operating_system/the_design_of_the_unix_operating_system.pdf", "The Design of the Unix Operating System") }}. The book covered {{ L("https://en.wikipedia.org/wiki/System_V#SVR2", "System V Release 2") }} kernel and some new features from {{ L("https://en.wikipedia.org/wiki/System_V#SVR3", "System V Release 3") }} and BSD
+
+- In 1987, {{ L("https://en.wikipedia.org/wiki/Minix", "MINIX") }} was released as a Unix-like system for academic use. But Minix was 16-bit and, although source code was available, the license prevented modification and redistribution
+
+- Any Unixes running on PCs were too expensive
+
+- And the open source BSD for PCs, {{ L("https://en.wikipedia.org/wiki/386BSD", "386BSD") }}, was not yet available; it only became available in March 1992
+
+So in July 1991 {{ L("https://www.linux.com/news/linuss-famous-email/", "Linus Torvalds announced") }} the first version of a {{ L("https://en.wikipedia.org/wiki/Unix-like", "Unix-like") }} kernel named {{ L("https://en.wikipedia.org/wiki/Linux", "Linux") }}.
+
+Linux did not use any Unix code and was, like GNU, free from Unix' architectural and legal problems.
+
+As Torvalds was unable to find {{ L("https://en.wikipedia.org/wiki/POSIX", "POSIX") }} documentation for {{ L("https://en.wikipedia.org/wiki/System_call", "system calls") }}, he modeled them after references in his university's {{ L("https://en.wikipedia.org/wiki/Sunos", "SunOS") }} documentation.
+
+In 1992, Orest Zborowski ported the standard Unix GUI framework, {{ L("https://en.wikipedia.org/wiki/X11", "X Window System (X11)") }}, to Linux. He made a good decision not to adapt X to Linux, but to make Linux more {{ L("https://en.wikipedia.org/wiki/Unix_System_V", "System V") }}-like, to be able to compile X with as little modification as possible. The improvements and the availability of X11 made Linux serious quickly. More about that porting project can be read in {{ L("https://www.linuxjournal.com/article/70", "Interview: Orest Zborowski") }}.
+
+A more complete history of Linux can be read in the {{ L("https://en.wikipedia.org/wiki/History_of_Linux", "History of Linux") }}.
+
+Linux is free software and a current/ongoing project; for any additional information please see {{ L("https://en.wikipedia.org/wiki/Linux", "Linux page at Wikipedia") }}.
+
+### GNU/Linux
+
+Stallman needed a kernel, and Torvalds needed all other software for a usable operating system.
+
+In 1991 Torvalds attended Stallman's talk on {{ L("https://en.wikipedia.org/wiki/Free_software", "Free Software") }} where they've met.
+
+The combined, complete Unix-like system was named GNU/Linux. Because everything was {{ L("https://en.wikipedia.org/wiki/Free_software", "Free Software") }} and everyone was free to use, modify, and redistribute their modified system, as early as 1992 at least 5 {{ L("https://en.wikipedia.org/wiki/Gnu/linux", "GNU/Linux") }} distributions became available.
+
+In 1997, Torvalds said in an interview that releasing Linux under the free and open source {{ L("https://en.wikipedia.org/wiki/GNU_General_Public_License", "GNU General Public License (GPL)") }} was "definitely the best thing [he] ever did".
+
+Today, GNU/Linux is the operating system running on 100% of {{ L("https://en.wikipedia.org/wiki/TOP500", "Top 500") }} computer systems in the world. In previous decades those systems were running some version of Unix.
+
+In June 2023, {{ L("https://www.tomshardware.com/news/linux-hits-3-percent-client-pc-market-share", "GNU/Linux reached 3% market share on the desktop") }}, and in July 2024 {{ L("https://www.tomshardware.com/software/linux/linux-market-share-approaching-45-for-first-time-could-hit-5-by-1q25", "GNU/Linux reached 4.5% market share on the desktop") }}.
+
+GNU/Linux is free software and a current/ongoing project; for any additional information please see {{ L("https://en.wikipedia.org/wiki/Gnu/linux", "GNU/Linux page at Wikipedia") }}.
+
+## Additional Information
+
+This chapter provides isolated pieces of information that are separate from the main storyline, but are still important for understanding Unix, its history, or influence.
+
+### 386BSD
+
+{{ L("https://en.wikipedia.org/wiki/Berkeley_Software_Design", "BSDi") }}'s commercial operating system {{ L("https://en.wikipedia.org/wiki/BSD/OS", "BSD/386") }} (later renamed BSD/OS) was not the only spinoff from {{ L("https://en.wikipedia.org/wiki/Computer_Systems_Research_Group", "CSRG") }}.
+
+One of BSDi's founders was {{ L("https://en.wikipedia.org/wiki/William_Jolitz", "William Jolitz") }}. As the release of BSD/386 in late 1991 was nearing, Jolitz supposedly discovered that BSDi planned not to release BSD/386 under a free BSD license.
+
+Unhappy with the fact, Jolitz removed the code he had done for BSD/386 and left BSDi to organize a competing and free operating system, somewhat confusingly named {{ L("https://en.wikipedia.org/wiki/386BSD", "386BSD") }}.
+
+In 1992, {{ L("https://en.wikipedia.org/wiki/William_Jolitz", "William Jolitz") }} and his wife {{ L("https://en.wikipedia.org/wiki/Lynne_Jolitz", "Lynne Jolitz") }} released 386BSD versions 0.0 and 0.1. Users began producing bug fixes and enhancements, releasing them as unofficial patches.
+
+In 1993, disagreeing with Jolitz on the future direction and releases of 386BSD, one group of users forked to create the {{ L("https://en.wikipedia.org/wiki/FreeBSD", "FreeBSD") }} project.
+
+Also in 1993, another group of users forked to create the {{ L("https://en.wikipedia.org/wiki/NetBSD", "NetBSD") }} project, with the goal of reuniting 386BSD and other BSDs into a common OS with good multi-platform support.
+
+386BSD released version 1.0 in 1994, and after a period of significant popularity in 1995-1996 it was forgotten by the 2000s.
+
+{{ L("https://en.wikipedia.org/wiki/NetBSD", "NetBSD") }} and its fork {{ L("https://en.wikipedia.org/wiki/OpenBSD", "OpenBSD") }}, and {{ L("https://en.wikipedia.org/wiki/FreeBSD", "FreeBSD") }} and its forks {{ L("https://en.wikipedia.org/wiki/GhostBSD", "GhostBSD") }} and {{ L("https://en.wikipedia.org/wiki/DragonFly_BSD", "DragonFly BSD") }}, are active and most popular BSD Unix distributions available today.
+
+### BSD and GNU/Linux Differences
+
+Two biggest branches of traditional Unix, BSD and System V, have diverged over time. Even their userland utilities are in some cases significantly different.
+For example, `ps aux` on BSD and `ps -ef` on SysV are equivalent commands to display all system processes.
+
+GNU-based utilities have bridged that gap by mostly supporting both styles and also adding their own, more uniform and modern style where it made sense.
+
+But in terms of BSD and GNU/Linux, the primary differences can be summarized as follows:
+
+1. Look & feel-wise, BSDs take pride in having a more direct Unix lineage. They also require more knowledge to install and use, have less hardware support, and a smaller user base
+
+1. Licensing-wise, even though {{ L("https://en.wikipedia.org/wiki/BSD_licenses", "BSD licenses") }}, a similar {{ L("https://en.wikipedia.org/wiki/MIT_License", "MIT License") }}, and {{ L("https://en.wikipedia.org/wiki/GNU_General_Public_License", "GNU GPL licenses") }} are all {{ L("https://en.wikipedia.org/wiki/Permissive_free_software_license", "free software licenses") }}, they have a key difference:
+
+BSD and MIT licenses are very permissive -- they do not require source code to be available, and they allow reuse and relicensing of code as proprietary software.
+The only requirement sometimes is that the relicensed software includes a copy of the original license and copyright notice.
+
+On the other hand, {{ L("https://en.wikipedia.org/wiki/GNU_General_Public_License", "GNU GPL") }} and variants are {{ L("https://en.wikipedia.org/wiki/Copyleft", "copyleft") }} licenses.
+They guarantee users four basic freedoms -- to use, study, modify, and share software.
+As such, they require making source code available and require that, if GPL code is modified and redistributed, it is done under the same or equivalent license terms as the original.
+
+This copyleft protection provided by GPL was crucial to the success of {{ L("https://en.wikipedia.org/wiki/Gnu/linux", "GNU/Linux") }} and {{ L("https://en.wikipedia.org/wiki/Free_software", "Free Software") }} in general. Copyleft licenses guarantee that software will remain free and benefit users indefinitely, rather than be taken by commercial companies for free, and then modified and resold for profit and under non-free licensing terms.
+
+Worth clarifying is that GNU GPL does not prevent commercialization. It is perfectly fine to sell free software and any support services around it -- the only requirement is that users' rights, guaranteed by the GPL license, remain unchanged. Or, if companies do not wish to pass GPL rights to users, they can request from authors a paid, commercial license that will allow them to make proprietary modifications and resell under non-free terms.
+
+### The Term "Open Source"
+
+In 1998, {{ L("https://en.wikipedia.org/wiki/Netscape", "Netscape") }} released their web browser {{ L("https://en.wikipedia.org/wiki/Netscape_Navigator", "Netscape Navigator") }} as {{ L("https://en.wikipedia.org/wiki/Open-source_software", "Open Source Software") }}. Netscape and its {{ L("https://en.wikipedia.org/wiki/Netscape_Communicator", "Netscape Communicator") }} suite are the ancestors of today's {{ L("https://en.wikipedia.org/wiki/Mozilla_Foundation", "Mozilla Foundation") }} and its products like the {{ L("https://en.wikipedia.org/wiki/Firefox", "Firefox") }} web browser and {{ L("https://en.wikipedia.org/wiki/Mozilla_Thunderbird", "Thunderbird") }} e-mail client.
+
+However, at the time of Netscape's release, the term {{ L("https://en.wikipedia.org/wiki/Open-source_software", "Open Source Software (OSS)") }} did not yet exist. Netscape's publishing the source code had prompted a meeting at which the term was coined.
+
+Later in 1998, {{ L("https://en.wikipedia.org/wiki/Bruce_Perens", "Bruce Perens") }} and {{ L("https://en.wikipedia.org/wiki/Eric_S._Raymond", "Eric S. Raymond") }} founded the non-profit {{ L("https://en.wikipedia.org/wiki/Open_Source_Initiative", "Open Source Initiative (OSI)") }} as a steward organization for the {{ L("https://en.wikipedia.org/wiki/Open-source-software_movement", "Open Source Software movement") }}. OSI's website is {{ L("https://opensource.org/") }}.
+
+OSI maintains the {{ L("https://en.wikipedia.org/wiki/The_Open_Source_Definition", "Open Source Definition") }} and the corresponding open source certification mark.
+
+The terms Free Software and Open Source are often used interchangeably in informal speech, but they are different. The differences can be summarized as follows:
+
+- The term *Open Source* was coined to help promote the open source business model to companies who did not understand or care about {{ L("https://en.wikipedia.org/wiki/Free_software", "Free Software") }}
+
+- Open Source is focused on benefits for businesses, while Free Software is focused on benefits for users
+
+- Open Source is utilitarian and concerns itself with the availability of source code, while Free Software concerns itself with user freedoms (of which source code availability is one)
+
+- Open Source movement accepts the existence of proprietary software, while Free Software movement considers all non-free software bad
+
+In short, all Free Software qualifies as Open Source, but only a subset of Open Source qualifies as Free Software.
+
+### SCO versus GNU/Linux
+
+Around 2003, {{ L("https://en.wikipedia.org/wiki/The_SCO_Group", "The SCO Group") }}, who bought some Unix assets from Novell in 1995, was used as a tool to start {{ L("https://en.wikipedia.org/wiki/SCO%E2%80%93Linux_disputes", "a series of legal disputes between SCO and Linux vendors") }}.
+
+In 2003, in {{ L("https://en.wikipedia.org/wiki/SCO_v._IBM", "SCO v. IBM") }}, SCO sued IBM over code contributed to the Linux kernel. SCO claimed that part of it was SCO's intellectual property, asking between $1B and $5B for damages, and aiming to collect royalties from Linux. They went as far as to start offering big customers to pay for Linux at a discount quickly, rather than be confronted with high costs later.
+
+The lawsuits had no real chance of succeeding; their purpose was to slow down Linux' rise in popularity by any means, including creating operational difficulties and spreading {{ L("https://en.wikipedia.org/wiki/Fear%2C_uncertainty_and_doubt", "fear, uncertainty, and doubt (FUD)") }}. The applicability and effectiveness of this method on software was already proven, unintentionally, a decade earlier during Unix Wars.
+
+In 2007, a long four years later, in {{ L("https://en.wikipedia.org/wiki/SCO_v._Novell", "SCO v. Novell") }}, it was ruled that Novell did not transfer the Unix copyright to SCO, invalidating the root of SCO's claims and leading it to bankruptcy by 2012.
+
+### MINIX
+
+{{ L("https://en.wikipedia.org/wiki/Minix", "MINIX") }} was a Unix-like operating system first created in 1987. Professor {{ L("https://en.wikipedia.org/wiki/Andrew_S._Tanenbaum", "Andrew Tanenbaum") }} created MINIX in response to the change in licensing of AT&T's V7 Unix, to be able to continue teaching Unix in classes.
+
+Due to technical limitations and a non-free license, MINIX did not progress beyond a tool for students and hobbyists. In 2000 it was retroactively relicensed under a free and open source BSD license and abandoned over the next couple years.
+
+However, what prompts a section on MINIX is that it surprisingly remains an active and widely deployed operating system. Without informing Tanenbaum of exact purpose, Intel commissioned him for some work on MINIX 3, then further customized the codebase and deployed it in all Intel CPUs after August 2015. MINIX is running on the Intel {{ L("https://en.wikipedia.org/wiki/Platform_Controller_Hub", "PCH") }} {{ L("https://en.wikipedia.org/wiki/Intel_Management_Engine", "ME") }} CPU, one of at least 4 internal CPUs on Intel motherboards and {{ L("https://en.wikipedia.org/wiki/System_on_a_chip", "SoC") }}s that are always running and are not accessible to users, but have access to computer's memory, storage, and networking.
+
+## Current Unix, BSD, GNU, and Linux Offerings
+
+Surviving proprietary Unix implementations are:
+
+- {{ L("https://en.wikipedia.org/wiki/Oracle_Solaris", "Oracle Solaris") }}, based on {{ L("https://en.wikipedia.org/wiki/Unix_System_V", "Unix System V") }}
+
+- {{ L("https://en.wikipedia.org/wiki/HP-UX", "HP-UX") }}, {{ L("https://en.wikipedia.org/wiki/Single_Unix_Specification#2001:_Single_Unix_Specification,_version_3,_POSIX.1-2001", "SUSv3") }}-certified and based on {{ L("https://en.wikipedia.org/wiki/Unix_System_V", "Unix System V") }}
+
+- {{ L("https://en.wikipedia.org/wiki/IBM_AIX", "IBM AIX") }}, {{ L("https://en.wikipedia.org/wiki/Single_Unix_Specification#2001:_Single_Unix_Specification,_version_3,_POSIX.1-2001", "SUSv3") }}-certified and based on {{ L("https://en.wikipedia.org/wiki/Unix_System_V", "Unix System V") }}
+
+- {{ L("https://en.wikipedia.org/wiki/MacOS", "Apple macOS") }}, {{ L("https://en.wikipedia.org/wiki/Single_Unix_Specification#2001:_Single_Unix_Specification,_version_3,_POSIX.1-2001", "SUSv3") }}-certified and based on {{ L("https://en.wikipedia.org/wiki/Darwin_(operating_system)", "Darwin") }}, a derivative of {{ L("https://en.wikipedia.org/wiki/Berkeley_Software_Distribution#Standards", "4.4BSD-Lite2") }} and {{ L("https://en.wikipedia.org/wiki/FreeBSD", "FreeBSD") }}
+
+Open source SysV distributions, descended from the discontinued {{ L("https://en.wikipedia.org/wiki/OpenSolaris", "OpenSolaris") }} and its successor {{ L("https://en.wikipedia.org/wiki/Illumos", "Illumos") }}, are:
+
+- {{ L("https://en.wikipedia.org/wiki/OpenIndiana", "OpenIndiana") }}, a desktop-friendly Illumos distribution for servers
+
+- {{ L("https://omnios.org/", "OmniOS") }}, a minimalist Illumos distribution for servers, just enough for tools and the OS to be self-supported
+
+- {{ L("https://en.wikipedia.org/wiki/SmartOS", "SmartOS") }}, an {{ L("https://en.wikipedia.org/wiki/System_V_Release_4#SVR4", "SVR4") }}-based {{ L("https://en.wikipedia.org/wiki/Hypervisor", "hypervisor") }}
+
+Most popular open source BSD implementations are:
+
+- {{ L("https://en.wikipedia.org/wiki/FreeBSD", "FreeBSD") }}
+
+- {{ L("https://en.wikipedia.org/wiki/NetBSD", "NetBSD") }}
+
+- {{ L("https://en.wikipedia.org/wiki/OpenBSD", "OpenBSD") }}
+
+- {{ L("https://en.wikipedia.org/wiki/GhostBSD", "GhostBSD") }}
+
+- {{ L("https://en.wikipedia.org/wiki/DragonFly_BSD", "DragonFly BSD") }}
+
+Many other BSD distributions can be seen listed in {{ L("https://en.wikipedia.org/wiki/List_of_BSD_operating_systems", "List of BSD operating systems") }} and {{ L("https://en.wikipedia.org/wiki/Comparison_of_BSD_operating_systems", "Comparison of BSD operating systems") }}.
+
+And finally, open source GNU/Linux implementations are too numerous and diverse to list. We could mention just some:
+
+- {{ L("https://en.wikipedia.org/wiki/Debian", "Debian GNU") }}, arguably the "best" and 2nd oldest active GNU/Linux distribution, adhering to {{ L("https://en.wikipedia.org/wiki/Debian_Free_Software_Guidelines", "Debian Free Software Guidelines (DFSG)") }}
+
+- {{ L("https://en.wikipedia.org/wiki/Ubuntu", "Ubuntu") }}, a more commercially-oriented distribution, based on Debian
+
+- {{ L("https://en.wikipedia.org/wiki/Devuan", "Devuan GNU+Linux") }}, a fork of Debian that uses sysvinit, runit, or OpenRC instead of systemd
+
+- {{ L("https://en.wikipedia.org/wiki/Pop!_OS", "Pop! OS") }}, a desktop-first distribution, based on Ubuntu, made by {{ L("https://en.wikipedia.org/wiki/System76", "System76") }}
+
+- {{ L("https://en.wikipedia.org/wiki/Linux_Mint", "Linux Mint") }}, a popular community-developed distribution with flavors based on Ubuntu and Debian, with a different default desktop environment
+
+The above list is limited and only mentions Linux distributions derived from Debian. Many other distributions can be seen listed in {{ L("https://en.wikipedia.org/wiki/List_of_Linux_distributions", "https://en.wikipedia.org/wiki/List_of_Linux_distributions") }} and {{ L("https://en.wikipedia.org/wiki/Comparison_of_Linux_distributions", "Comparison of Linux distributions") }}.
+
+A broader comparison of all open source operating systems can be seen in the {{ L("https://en.wikipedia.org/wiki/Comparison_of_open_source_operating_systems", "Comparison of open-source operating systems") }}.
+
+## Interesting Sources, Projects, and Teaching Materials
+
+Because Unix and BSD source code can be traced back to its roots in the 1970s, {{ L("https://www.spinellis.gr/", "Diomidis Spinellis") }} created a Git-based {{ L("https://github.com/dspinellis/unix-history-repo", "Unix History Repository") }} that contains continuous Unix commit history from its beginnings to today.
+
+As mentioned, John Lions' wrote the first {{ L("https://en.wikipedia.org/wiki/Lions%27_Commentary_on_UNIX_6th_Edition,_with_Source_Code", "Commentary on the UNIX Operating System") }} ({{ L("https://archive.org/details/bitsavers_attunix6thtaryontheUnixOperatingSystem197705_12314928", "Commentary's alternative PDF") }}) in 1977.
+
+A modern, free, and educational reimplementation of V6 Unix from Lions' Commentary is available and named {{ L("https://en.wikipedia.org/wiki/Xv6", "xv6") }}.
+
+A secure, fast, static-architecture OS based on the {{ L("https://en.wikipedia.org/wiki/L4_microkernel_family#High_assurance:_seL4", "seL4") }} {{ L("https://en.wikipedia.org/wiki/Microkernel", "microkernel") }}, currently in its early stage, is available and named the {{ L("https://lionsos.org/", "Lions Operating System (LionsOS)") }}.
+
+Andrew Warkentin is working on a QNX-like OS based on the {{ L("https://en.wikipedia.org/wiki/L4_microkernel_family#High_assurance:_seL4", "seL4") }} {{ L("https://en.wikipedia.org/wiki/Microkernel", "microkernel") }}, currently in its early stage, called {{ L("https://gitlab.com/uxrt/uxrt-toplevel", "UX/RT") }}.
+
+Oscar Vermeulen is producing {{ L("https://obsolescence.dev/", "orderable replicas of DEC PDP computers") }}.

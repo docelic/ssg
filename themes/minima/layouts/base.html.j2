@@ -1,0 +1,65 @@
+{#- Document shell: head, header, main block, footer. -#}
+{%- set p = site.params -%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#262d33">
+  <title>{% block title %}{% if page.home %}{{ site.title }}{% if p.subtitle %} - {{ p.subtitle }}{% endif %}{% else %}{{ page.title }} - {{ site.title }}{% endif %}{% endblock %}</title>
+  {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
+  <link rel="alternate" type="application/rss+xml" href="/index.xml" title="{{ site.title }}">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/css/minima.css">
+  {%- set comment = p.comment | default({}) %}
+  <script>
+    window.minima = {{ {"theme": p.default_theme | default("light"), "switch": p.switch | default(["🌚", "🌝"]), "selectable": p.selectable | default(true), "comment": comment.provider | default("")} | json }};
+    // Pick the colour scheme before first paint to avoid a flash.
+    (function () {
+      var light = window.minima.theme === "system" ? "light" : window.minima.theme;
+      var theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : light;
+      try { theme = localStorage.getItem("theme") || theme; } catch (e) {}
+      document.documentElement.classList.add(theme);
+    })();
+  </script>
+  <script defer src="/js/minima.js"></script>
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <header class="mt-3 mb-6">
+    <div class="container mx-auto">
+      <nav class="flex justify-between items-center">
+        <div class="flex items-center">
+          {% if p.brand %}<div class="mr-3 text-3xl"><a href="/">{{ p.brand }}</a></div>{% endif %}
+        </div>
+        <ul class="flex items-center text-base font-bold whitespace-nowrap overflow-x-auto overflow-y-hidden">
+          {% for item in p.menu %}
+          <li class="ml-2 mr-2"><a href="{{ item.url }}">{{ item.name }}</a></li>
+          {% endfor %}
+          <li class="ml-2 mr-2">|</li>
+          <li class="ml-2 mr-2"><div id="theme-switch" class="cursor-pointer"></div></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  {% block main %}{% endblock %}
+
+  <footer class="mt-8 mb-8">
+    <div class="container mx-auto">
+      <div class="mt-8 flex flex-col-reverse sm:flex-row sm:justify-between items-center">
+        <div class="text-center sm:text-left">
+          <p class="mt-0 text-sm">{{ p.copyright }}</p>
+        </div>
+        <p class="flex items-center mt-0">
+          {% set icons = site.data.icons | default({}) %}
+          {% for s in p.social %}
+          <a class="icon ml-1 mr-1" href="{{ s.url }}" title="{{ s.name }}">{{ s.svg | default(icons[s.name]) | default(s.name) | safe }}</a>
+          {% endfor %}
+        </p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

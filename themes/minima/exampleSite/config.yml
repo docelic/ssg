@@ -1,0 +1,38 @@
+title: Minima Example
+base_url: https://example.com/
+themes_dir: ../..
+theme: minima
+taxonomies: [tags, series]
+paginate: 10
+markdown:
+  highlight: github
+params:
+  brand: Minima
+  greet: "Hello :)"
+  author:
+    status: "Currently living on Earth 🌍"
+    description: |
+      This is **Minima**, a clean and minimal theme ported from Hugo. It has
+      dark mode, code highlighting, series, tags, search and RSS.
+  copyright: "© 2026 Example"
+  menu:
+    - {name: Tags, url: /tags/}
+    - {name: Series, url: /series/}
+    - {name: About, url: /about/}
+    - {name: "🔍", url: /search/}
+  social:
+    - {name: github, url: https://github.com/crystallabs}
+    - {name: rss, url: /index.xml}
+  switch: ["🌚", "🌝"]
+  default_theme: light
+  display_date: true
+  display_description: true
+  selectable: true
+  toc: false
+  search:
+    title: Search
+    placeholder: Enter keywords
+    fuse: {keys: [title, summary, content], threshold: 0.4, ignoreLocation: true}
+  comment:
+    enable: false
+    provider: giscus

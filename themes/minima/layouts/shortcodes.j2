@@ -1,0 +1,20 @@
+{#- Macros available in every template and .j2 content file. -#}
+
+{# External link. Usage: L("https://example.org", "Example") #}
+{% macro L(url, title=none) %}<a href="{{ url }}">{{ title | default(url, true) }}</a>{% endmacro %}
+
+{# Link to another page by slug, directory name or content path. Usage: R("unix-philosophy") #}
+{% macro R(name, title=none) %}{% set target = site.page(name) %}<a href="{{ target.url }}">{{ title | default(target.title, true) }}</a>{% endmacro %}
+
+{# Verbatim block quote. Usage: call bq(cite="Someone") ... endcall #}
+{% macro bq(cite=none) %}<blockquote class="text">
+{{ caller() | trim | escape | replace("\n", "<br>") | safe }}{% if cite %}
+<cite>{{ cite }}</cite>{% endif %}
+</blockquote>{% endmacro %}
+
+{# Lists of all terms of a taxonomy, with descriptions from data/<taxonomy>.yml #}
+{% macro terms(taxonomy) %}{% set tax = site.taxonomies[taxonomy] %}{% if tax %}{% set descriptions = site.data[taxonomy] | default({}) %}<ul class="list-disc">
+{% for t in tax.pages %}<li><a href="{{ t.url }}">#{{ t.term }}</a>{% if descriptions[t.term] %} - {{ descriptions[t.term] }}{% endif %}</li>
+{% endfor %}</ul>{% endif %}{% endmacro %}
+{% macro series() %}{{ terms("series") }}{% endmacro %}
+{% macro tags() %}{{ terms("tags") }}{% endmacro %}

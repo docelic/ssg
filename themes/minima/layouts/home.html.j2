@@ -1,0 +1,25 @@
+{% extends "base.html.j2" %}
+{% block main %}
+{% set p = site.params %}
+{% set author = p.author | default({}) %}
+<main class="container mx-auto">
+  <div class="text-center">
+    {% if p.greet %}<h2 class="mt-8 text-3xl font-bold">{{ p.greet }}</h2>{% endif %}
+    {% if author.status %}<p class="mt-0 mb-0">{{ author.status }}</p>{% endif %}
+    {% if author.description %}<div class="mt-3 mb-3 home-intro">{{ author.description | markdown }}</div>{% endif %}
+  </div>
+
+  {# Posts grouped by series when the site has that taxonomy, newest posts otherwise. #}
+  {% set series = site.taxonomies.series %}
+  {% if series %}
+    {% set descriptions = site.data.series | default({}) %}
+    {% for term in series.pages %}
+    <h3 class="mt-6 mb-0 text-2xl font-semibold">{{ term.term | title }}</h3>
+    {% if descriptions[term.term] %}<p>{{ descriptions[term.term] }}</p>{% endif %}
+    {% for item in term.pages | sort(attribute="weight") %}{% include "partials/item.html.j2" %}{% endfor %}
+    {% endfor %}
+  {% else %}
+    {% for item in site.regular_pages | selectattr("date") | sort(attribute="date", reverse=true) %}{% include "partials/item.html.j2" %}{% endfor %}
+  {% endif %}
+</main>
+{% endblock %}

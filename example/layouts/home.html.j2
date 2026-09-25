@@ -1,0 +1,11 @@
+{% extends "base.html.j2" %}
+{% block title %}{{ site.title }}{% endblock %}
+{% block main %}
+{{ content }}
+<h2>Latest</h2>
+<ul>
+{% for p in site.regular_pages | selectattr("date") | sort(attribute="date", reverse=true) %}
+  <li><a href="{{ p.url }}">{{ p.title }}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,2 @@
+{% macro L(url, title) %}{{ page.store.append("seen", url) }}<a href="{{ url }}">{{ title }}</a>{% endmacro %}
+{% macro bq(cite=none) %}<q>{{ caller() | trim }}{% if cite %} ({{ cite }}){% endif %}</q>{% endmacro %}

@@ -1,0 +1,30 @@
+// Utility classes, generated only for the values the layouts use.
+$spacing: (m: margin, p: padding);
+$sides: (t: top, r: right, b: bottom, l: left);
+$steps: 0 1 2 3 4 5 6 8;
+@each $abbr, $prop in $spacing {
+  @each $s, $side in $sides {
+    @each $n in $steps {
+      .#{$abbr}#{$s}-#{$n} { #{$prop}-#{$side}: $n * .25rem; }
+    }
+  }
+}
+.mx-auto { margin-left: auto; margin-right: auto; }
+$sizes: (xs: .75, sm: .875, base: 1, lg: 1.125, 2xl: 1.5, 3xl: 1.875, 4xl: 2.25, 5xl: 3);
+@each $k, $v in $sizes { .text-#{$k} { font-size: #{$v}rem; } }
+$weights: (semibold: 600, bold: 700, extrabold: 800);
+@each $k, $v in $weights { .font-#{$k} { font-weight: $v; } }
+.flex { display: flex; }
+.flex-col-reverse { flex-direction: column-reverse; }
+.justify-between { justify-content: space-between; }
+.items-center { align-items: center; }
+.text-center { text-align: center; }
+.whitespace-nowrap { white-space: nowrap; }
+.overflow-x-auto { overflow-x: auto; }
+.overflow-y-hidden { overflow-y: hidden; }
+.cursor-pointer { cursor: pointer; }
+@media (min-width: 640px) {
+  .sm\:flex-row { flex-direction: row; }
+  .sm\:justify-between { justify-content: space-between; }
+  .sm\:text-left { text-align: left; }
+}

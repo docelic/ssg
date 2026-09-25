@@ -1,0 +1,27 @@
+name: ssg
+version: 0.1.0
+
+authors:
+  - Davor Ocelic <docelic@spinlocksolutions.com>
+
+description: |
+  A simple static site generator. Pages are directories, output formats are
+  derived from filename extension chains, templates are Crinja (Jinja2).
+
+targets:
+  ssg:
+    main: src/main.cr
+
+crystal: ">= 1.10.0"
+
+license: MIT
+
+dependencies:
+  crinja:
+    github: straight-shoota/crinja
+  markd:
+    github: icyleaf/markd
+  tartrazine:
+    github: ralsina/tartrazine
+  sass:
+    github: straight-shoota/sass.cr

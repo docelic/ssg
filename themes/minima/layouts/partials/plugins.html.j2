@@ -1,0 +1,69 @@
+{#- Optional client-side extras: math (KaTeX), diagrams (Mermaid), comments. Each is enabled
+    site-wide by params.<plugin>.enable and can be forced on or off per page with `math: true` etc. -#}
+{% set p = site.params %}
+{% set math = p.math | default({}) %}
+{% set diagram = p.diagram | default({}) %}
+{% set comment = p.comment | default({}) %}
+
+{% if page.math | default(math.enable) %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+  onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}, {left: '\\(', right: '\\)', display: false}, {left: '\\[', right: '\\]', display: true}], throwOnError: false});"></script>
+{% endif %}
+
+{% if page.diagram | default(diagram.enable) %}
+<script type="module">
+  import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";
+  mermaid.run({querySelector: "code.language-mermaid"});
+</script>
+{% endif %}
+
+{% if page.comment | default(comment.enable) %}
+<div id="comment" class="mt-8"></div>
+{% if comment.provider == "giscus" %}
+{% set g = comment.giscus | default({}) %}
+<script>
+  (function () {
+    var s = document.createElement("script");
+    s.src = "https://giscus.app/client.js";
+    s.crossOrigin = "anonymous";
+    s.async = true;
+    var attrs = {"data-repo": "{{ g.repo }}", "data-repo-id": "{{ g.repo_id }}", "data-category": "{{ g.category }}",
+      "data-category-id": "{{ g.category_id }}", "data-mapping": "{{ g.mapping | default('pathname') }}", "data-strict": "0",
+      "data-reactions-enabled": "{% if g.reactions %}1{% else %}0{% endif %}", "data-emit-metadata": "0",
+      "data-input-position": "{{ g.input_position | default('bottom') }}", "data-lang": "en", "data-loading": "lazy",
+      "data-theme": document.documentElement.classList.contains("dark") ? "dark" : "light"};
+    for (var k in attrs) s.setAttribute(k, attrs[k]);
+    document.getElementById("comment").appendChild(s);
+  })();
+</script>
+{% elif comment.provider == "utterances" %}
+{% set u = comment.utterances | default({}) %}
+<script>
+  (function () {
+    var s = document.createElement("script");
+    s.src = "https://utteranc.es/client.js";
+    s.crossOrigin = "anonymous";
+    s.async = true;
+    s.setAttribute("repo", "{{ u.repo }}");
+    s.setAttribute("issue-term", "{{ u.issue_term | default('pathname') }}");
+    s.setAttribute("label", "{{ u.label | default('comment') }}");
+    s.setAttribute("theme", "github-" + (document.documentElement.classList.contains("dark") ? "dark" : "light"));
+    document.getElementById("comment").appendChild(s);
+  })();
+</script>
+{% elif comment.provider == "disqus" %}
+{% set disqus = comment.disqus | default({}) %}
+<div id="disqus_thread"></div>
+<script>
+  if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
+    var d = document.createElement("script");
+    d.async = true;
+    d.src = "//{{ disqus.shortname }}.disqus.com/embed.js";
+    document.getElementById("comment").appendChild(d);
+  }
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+{% endif %}
+{% endif %}

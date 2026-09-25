@@ -1,0 +1,29 @@
+{#- Sections, taxonomy indexes (/tags/) and terms (/tags/foo/). -#}
+{% extends "base.html.j2" %}
+{% block main %}
+<main class="container mx-auto">
+  {% if page.term %}
+    <h2 class="text-4xl mt-8 mb-8">{{ page.taxonomy | title }} - "{{ page.term }}"</h2>
+    {% for item in paginator.pages %}{% include "partials/item.html.j2" %}{% endfor %}
+  {% elif page.taxonomy %}
+    <h2 class="text-3xl font-bold mb-3">{{ page.title }}</h2>
+    {% set descriptions = site.data[page.taxonomy] | default({}) %}
+    {% for term in page.pages %}
+    <h3 class="mt-6 mb-0 text-2xl font-semibold">{{ descriptions[term.term] | default(term.term) | title }}</h3>
+    {% for item in term.pages | reverse %}{% set brief = true %}{% include "partials/item.html.j2" %}{% endfor %}
+    {% endfor %}
+  {% else %}
+    <h2 class="text-4xl mt-8 mb-8">{{ page.title }}</h2>
+    {{ content }}
+    <div class="mt-8">
+    {% for item in paginator.pages %}{% include "partials/item.html.j2" %}{% endfor %}
+    </div>
+  {% endif %}
+  {% if paginator.total > 1 %}
+  <div class="mt-6 flex justify-between font-semibold">
+    <span>{% if paginator.prev_url %}<a href="{{ paginator.prev_url }}">← Newer</a>{% endif %}</span>
+    <span>{% if paginator.next_url %}<a href="{{ paginator.next_url }}">Older →</a>{% endif %}</span>
+  </div>
+  {% endif %}
+</main>
+{% endblock %}

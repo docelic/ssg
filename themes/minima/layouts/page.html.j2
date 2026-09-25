@@ -1,0 +1,34 @@
+{% extends "base.html.j2" %}
+{% block main %}
+{% set p = site.params %}
+<div class="container mx-auto">
+  <h1 class="text-4xl font-extrabold mt-6 mb-6">{{ page.title }}</h1>
+  <div class="mb-3 text-sm flex justify-between">
+    <div>
+      {% if p.display_date and page.date %}
+      First published &mdash; {{ page.date | date("%b %d, %Y") }}<br>
+      {% if page.lastmod %}Last updated &mdash; {{ page.lastmod | date("%b %d, %Y") }}<br>{% endif %}
+      {% endif %}
+      {% if page.draft %}<span class="ml-3 tag">DRAFT</span>{% endif %}
+    </div>
+    {% set tags = page.terms_for("tags") %}
+    {% if tags %}
+    <div>{% for t in tags %}<a class="ml-1" href="{{ t.url }}">#{{ t.term }}</a>{% endfor %}</div>
+    {% endif %}
+  </div>
+  <main class="mb-8">
+    {% if page.description %}<div class="mb-3">{{ page.description | markdown }}</div>{% endif %}
+    {% if page.banner %}<div id="banner" style="background-image: url('{{ page.banner }}');"></div>{% endif %}
+    <article class="md">
+      {% include "partials/series.html.j2" %}
+      {% if page.toc | default(p.toc) %}{% include "partials/toc.html.j2" %}{% endif %}
+      <div class="article_body">
+      {{ content }}
+      </div>
+      {% include "partials/series.html.j2" %}
+      {% include "partials/links.html.j2" %}
+    </article>
+  </main>
+  {% include "partials/plugins.html.j2" %}
+</div>
+{% endblock %}

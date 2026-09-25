@@ -1,0 +1,20 @@
+{% extends "base.html.j2" %}
+{% block main %}
+<article>
+  <h1>{{ page.title }}</h1>
+  {% if page.date %}<time>{{ page.date | date("%B %-d, %Y") }}</time>{% endif %}
+  {% if page.description %}<p>{{ page.description }}</p>{% endif %}
+  {% include "partials/series.html.j2" %}
+  {% include "partials/toc.html.j2" %}
+  <div class="article_body">
+  {{ content }}
+  </div>
+  {% include "partials/links.html.j2" %}
+  {% set tags = page.terms_for("tags") %}
+  {% if tags %}<p>Tags: {% for t in tags %}<a href="{{ t.url }}">{{ t.title }}</a> {% endfor %}</p>{% endif %}
+  <nav>
+    {% if page.prev %}<a href="{{ page.prev.url }}">&larr; {{ page.prev.title }}</a>{% endif %}
+    {% if page.next %}<a href="{{ page.next.url }}">{{ page.next.title }} &rarr;</a>{% endif %}
+  </nav>
+</article>
+{% endblock %}

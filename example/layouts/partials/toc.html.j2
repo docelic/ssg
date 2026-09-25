@@ -1,0 +1,8 @@
+{% if page.toc and page.headings %}
+<h2>Table of Contents</h2>
+<ul class="toc">
+{% for h in page.headings %}
+  <li class="level-{{ h.level }}"><a href="#{{ h.id }}">{{ h.text }}</a></li>
+{% endfor %}
+</ul>
+{% endif %}

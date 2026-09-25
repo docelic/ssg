@@ -1,0 +1,9 @@
+/lib/
+/bin/
+/.link/
+/.shards/
+/example/public/
+/themes/*/exampleSite/public/
+/spec/out/
+*.dwarf
+*.log

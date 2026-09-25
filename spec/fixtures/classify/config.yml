@@ -1,0 +1,9 @@
+title: Classify
+base_url: https://classify.test/
+output_dir: ../../out/classify
+paginate: 2
+permalinks:
+  docs: /d/:filename/
+cascade:
+  author: Site
+theme: basic

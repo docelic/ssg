@@ -1,0 +1,16 @@
+{#- One entry in a list. Expects `item`; set `brief` to drop date and description. -#}
+{% set p = site.params %}
+<div>
+  <div class="flex flex-col-reverse sm:flex-row sm:justify-between">
+    <a class="text-lg font-bold" href="{{ item.link | default(item.url) }}">{{ item.title }}</a>
+    {% if p.display_date and item.date and not brief %}
+    <div class="text-sm whitespace-nowrap">{{ item.lastmod | default(item.date) | date("%b %d, %Y") }}</div>
+    {% endif %}
+  </div>
+  {% if p.display_description and item.description and not brief %}
+  <div class="text-base mb-2">
+    {% if item.draft %}<span class="ml-3 tag hl">DRAFT</span>{% endif %}
+    {{ item.description | markdown }}
+  </div>
+  {% endif %}
+</div>

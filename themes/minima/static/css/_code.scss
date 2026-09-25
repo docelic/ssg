@@ -1,0 +1,14 @@
+// Code highlighting: classes emitted by the tool's highlighter (prefix hl-), coloured by the scheme variables.
+pre.hl-b { margin: .5em 0; background-image: var(--back-image); background-color: var(--code-back); border-radius: 2px; }
+.hl-b code, code.hl-b { color: var(--code-text); font-size: inherit; padding: 0; }
+.hl-ln, .hl-lnt { color: var(--code-line-number); }
+.hl-k, .hl-kc, .hl-kd, .hl-kn, .hl-kp, .hl-kr, .hl-nk, .hl-ow,
+.hl-no, .hl-nd, .hl-ni, .hl-ne, .hl-nl, .hl-nn, .hl-nt, .hl-nv, .hl-nvc, .hl-nvg, .hl-nvi, .hl-nvm, .hl-py { color: var(--code-keyword); }
+.hl-kt, .hl-nb, .hl-nbp { color: var(--code-builtin-type); }
+.hl-na { color: var(--code-attribute); }
+.hl-nf, .hl-nfm { color: var(--code-function); }
+.hl-s, .hl-sa, .hl-sb, .hl-sc, .hl-dl, .hl-sd, .hl-se, .hl-sr, .hl-ss, .hl-lsa, .hl-sbo, .hl-lsh, .hl-lsi, .hl-lsn, .hl-lso, .hl-cpf { color: var(--code-literal-string); }
+.hl-m, .hl-lnb, .hl-lnf, .hl-lnh, .hl-lni, .hl-lnil, .hl-lno { color: var(--code-literal-number); }
+.hl-c, .hl-ch, .hl-cm, .hl-cs { color: var(--code-comment); }
+.hl-cp { color: var(--code-meta); }
+.hl-lh { display: block; background-color: var(--code-highlighted-line); }

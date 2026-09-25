@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+  <title>{{ page.title }} | {{ site.title }}</title>
+  <link>{{ page.permalink }}</link>
+  {% for p in page.regular_pages %}
+  <item>
+    <title>{{ p.title }}</title>
+    <link>{{ p.permalink }}</link>
+    <description>{{ p.content | forceescape }}</description>
+  </item>
+  {% endfor %}
+</channel>
+</rss>

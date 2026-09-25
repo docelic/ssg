@@ -1,0 +1,12 @@
+title: Example Site
+base_url: https://example.com/
+taxonomies: [tags, categories, series]
+params:
+  author: Jane Doe
+  description: A site built with ssg
+permalinks:
+  blog: /:year/:month/:slug/
+markdown:
+  highlight: github
+cascade:
+  author: Jane Doe

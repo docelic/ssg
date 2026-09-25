@@ -1,0 +1,15 @@
+{% set series_terms = page.terms_for("series") %}
+{% if series_terms %}
+<div>
+  <h2>Article Collection</h2>
+  This article is part of the following series:
+  {% for s in series_terms %}
+  <h4>{{ loop.index }}. {{ site.data.series[s.term] | default(s.term) | title }}</h4>
+  <ul>
+    {% for post in s.pages | sort(attribute="weight") %}
+    <li><a href="{{ post.url }}">Part {{ loop.index }}: {{ post.title }}</a>{% if post.url == page.url %} (this article){% endif %}</li>
+    {% endfor %}
+  </ul>
+  {% endfor %}
+</div>
+{% endif %}

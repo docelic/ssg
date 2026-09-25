@@ -1,0 +1,19 @@
+/* Layout */
+.container { max-width: var(--max-w); }
+main { animation: showup .7s; }
+@keyframes showup { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+@media (min-width: 640px) { body { margin-top: calc(1rem + 2vh); } }
+main a:link { color: blue; }
+main a:visited { color: #860000; }
+main a:hover { text-decoration: underline; }
+main a:active { color: #ff51c1; }
+main a[href^="http"] { background-image: url("/img/link-external.svg"); background-position: right center; background-repeat: no-repeat; background-size: .857em; padding-right: 1em; }
+.icon svg { vertical-align: middle; }
+.tag, p code { font-size: .8em; padding: .1em .3em; border-radius: 1px; background-color: #9999993b; }
+.tag.hl { background-color: var(--prime); color: #fff; }
+.home-intro p { margin: .5rem 0; }
+#banner { height: calc((100vw - 240px) / 6.2 - 1px); width: 100%; display: block; background: transparent center / contain no-repeat; }
+.list-disc { list-style-type: disc; padding-inline-start: 22px; }
+.list-decimal { list-style-type: decimal; padding-inline-start: 22px; }
+.search > input { width: 100%; padding: .5em; font-size: large; border: 2px solid var(--grid); border-radius: 2px; background-color: transparent; color: inherit; outline: none; }
+

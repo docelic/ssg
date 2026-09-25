@@ -1,0 +1,19 @@
+{#- Client-side search over /index.json; used by a page with `layout: search`. -#}
+{% extends "base.html.j2" %}
+{% block head %}
+<script defer src="/js/fuse.basic.min.js"></script>
+<script defer src="/js/search.js"></script>
+{% endblock %}
+{% block main %}
+{% set search = site.params.search | default({}) %}
+<main class="container mx-auto">
+  <h1 class="text-4xl font-extrabold mt-6 mb-6">{{ search.title | default(page.title) }}</h1>
+  <div class="search">
+    <input class="mb-4" autofocus autocomplete="off" id="search-input" type="search"
+      placeholder="{{ search.placeholder | default(page.title) }} ↵"
+      data-options='{{ search.fuse | default({"keys": ["title", "summary", "content"], "threshold": 0.4, "ignoreLocation": true}) | json | forceescape }}'>
+    <ul id="search-result" class="list-disc"></ul>
+  </div>
+  {{ content }}
+</main>
+{% endblock %}

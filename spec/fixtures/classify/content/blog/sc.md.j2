@@ -1,0 +1,24 @@
+---
+title: Shortcodes
+date: 2026-01-01
+---
+# First
+
+See {{ L("https://x.test/a", "A \"quoted\" name") }} and {{ L("https://x.test/b", "B") }} and [plain](/about/).
+
+{% call bq(cite="me") %}
+line one
+line two
+{% endcall %}
+
+# First
+
+{{ site.data.site.greeting }} {{ site.data.nested.n.a }}
+
+```crystal
+puts 1
+```
+
+```nosuchlang
+raw
+```

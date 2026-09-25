@@ -1,0 +1,4 @@
+{#- Search index consumed by static/js/search.js. -#}
+[{% for item in site.regular_pages | rejectattr("layout", "equalto", "search") | rejectattr("layout", "equalto", "404") %}{% if not loop.first %},{% endif %}
+{{ {"title": item.title, "permalink": item.permalink, "summary": item.summary, "content": item.plain} | json }}{% endfor %}
+]

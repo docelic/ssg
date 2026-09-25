@@ -1,0 +1,23 @@
+require "file_utils"
+require "./ssg/error"
+require "./ssg/crinja_ext"
+require "./ssg/markd_ext"
+require "./ssg/chain"
+require "./ssg/processors"
+require "./ssg/front_matter"
+require "./ssg/values"
+require "./ssg/config"
+require "./ssg/page"
+require "./ssg/site"
+require "./ssg/template_env"
+require "./ssg/renderer"
+require "./ssg/builder"
+require "./ssg/server"
+require "./ssg/hugo_convert"
+require "./ssg/init"
+require "./ssg/cli"
+
+module SSG
+  VERSION = "0.1.0"
+end
+
