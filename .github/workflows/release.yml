@@ -2,9 +2,12 @@
 # binaries to it. Re-run for an existing release with "Run workflow" and its
 # tag.
 #
-# Linux binaries are fully static (musl, built in the Alpine Crystal image)
-# and are run inside a debian:12 container before they are uploaded, so a
-# published binary is known to work on Debian 12 and later.
+# Linux binaries are fully static (musl, built in the Alpine Crystal image
+# by .github/build-linux.sh) and are run inside a debian:12 container before
+# they are uploaded, so a published binary is known to work on Debian 12 and
+# later. The Alpine image is run with docker rather than as a job container
+# because GitHub's JavaScript actions (checkout, upload-artifact) only work
+# in Alpine containers on x64 runners, not on arm64.
 #
 # macOS binaries are built with Homebrew Crystal, but every Homebrew library
 # is linked statically so the result depends only on system frameworks.
@@ -35,21 +38,13 @@ jobs:
         include:
           - {arch: x86_64,  runner: ubuntu-latest}
           - {arch: aarch64, runner: ubuntu-24.04-arm}
-    container: crystallang/crystal:latest-alpine
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install native libraries
-        run: apk add --no-cache libsass-dev g++ file
-
-      - name: Build
+      - name: Build in the Alpine Crystal image
         run: |
-          shards install --without-development
-          crystal build --release --no-debug --static src/main.cr -o ssg \
-            --link-flags "-lstdc++"
-          file ssg
-          file ssg | grep -q 'statically linked'
-          ./ssg version
+          docker run --rm -v "$PWD:/src" -w /src \
+            crystallang/crystal:latest-alpine sh .github/build-linux.sh
 
       - uses: actions/upload-artifact@v4
         with:
