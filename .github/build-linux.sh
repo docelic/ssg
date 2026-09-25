@@ -6,7 +6,7 @@ set -eux
 
 LIBSASS_VERSION=3.6.6
 
-apk add --no-cache pkgconf file
+apk add --no-cache g++ pkgconf file
 
 # Alpine's libsass-dev only ships libsass.so, which a --static build cannot
 # link, so build the static archive from source.
